@@ -1,0 +1,75 @@
+{
+  "name": "Full Stack Python API",
+  "description": "Production-ready web API with PostgreSQL database",
+  "complexity": 0.6,
+  "confidence": 0.875,
+  "components": [
+    {
+      "name": "FastAPI",
+      "role": "API Framework",
+      "capabilities": [
+        "web_framework"
+      ],
+      "license": "MIT",
+      "popularity": 0.9
+    },
+    {
+      "name": "PostgreSQL",
+      "role": "Primary Database",
+      "capabilities": [
+        "database"
+      ],
+      "license": "PostgreSQL",
+      "popularity": 0.95
+    },
+    {
+      "name": "Redis",
+      "role": "Cache & Session Store",
+      "capabilities": [
+        "cache",
+        "message_queue"
+      ],
+      "license": "BSD",
+      "popularity": 0.85
+    },
+    {
+      "name": "SQLAlchemy",
+      "role": "ORM & Data Layer",
+      "capabilities": [
+        "database"
+      ],
+      "license": "MIT",
+      "popularity": 0.8
+    }
+  ],
+  "connections": [
+    {
+      "from": "FastAPI",
+      "to": "PostgreSQL",
+      "type": "compatible_with",
+      "strength": 0.85,
+      "evidence": "Direct integration available"
+    },
+    {
+      "from": "FastAPI",
+      "to": "SQLAlchemy",
+      "type": "compatible_with",
+      "strength": 0.9,
+      "evidence": "Commonly used together in Python web applications"
+    },
+    {
+      "from": "Redis",
+      "to": "FastAPI",
+      "type": "compatible_with",
+      "strength": 0.8,
+      "evidence": "Commonly used for caching in FastAPI apps"
+    },
+    {
+      "from": "SQLAlchemy",
+      "to": "PostgreSQL",
+      "type": "compatible_with",
+      "strength": 0.95,
+      "evidence": "SQLAlchemy has excellent PostgreSQL support"
+    }
+  ]
+}

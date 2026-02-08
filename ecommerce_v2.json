@@ -1,0 +1,63 @@
+{
+  "name": "E-commerce Platform",
+  "description": "Scalable online store with inventory, cart, orders, and payments",
+  "complexity": 0.55,
+  "confidence": 0.869,
+  "components": [
+    {
+      "name": "Express.js",
+      "role": "Store Frontend & API",
+      "capabilities": [
+        "web_framework"
+      ],
+      "license": "MIT",
+      "popularity": 0.92
+    },
+    {
+      "name": "PostgreSQL",
+      "role": "Product & Order Database",
+      "capabilities": [
+        "database"
+      ],
+      "license": "PostgreSQL",
+      "popularity": 0.95
+    },
+    {
+      "name": "Redis",
+      "role": "Session & Catalog Cache",
+      "capabilities": [
+        "cache",
+        "message_queue"
+      ],
+      "license": "BSD",
+      "popularity": 0.85
+    },
+    {
+      "name": "Kafka",
+      "role": "Order Processing Queue",
+      "capabilities": [
+        "message_queue"
+      ],
+      "license": "Apache 2.0",
+      "popularity": 0.86
+    },
+    {
+      "name": "Grafana",
+      "role": "Store Analytics",
+      "capabilities": [
+        "monitoring"
+      ],
+      "license": "AGPL",
+      "popularity": 0.87
+    }
+  ],
+  "connections": [
+    {
+      "from": "Express.js",
+      "to": "Redis",
+      "type": "compatible_with",
+      "strength": 0.82,
+      "evidence": "Redis commonly used for sessions in Express.js"
+    }
+  ]
+}

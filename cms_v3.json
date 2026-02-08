@@ -1,0 +1,84 @@
+{
+  "name": "Modern Content Management System",
+  "description": "Complete CMS with authentication, media storage, and search",
+  "complexity": 0.7,
+  "confidence": 0.853,
+  "components": [
+    {
+      "name": "Django",
+      "role": "CMS Framework",
+      "capabilities": [
+        "web_framework"
+      ],
+      "license": "BSD",
+      "popularity": 0.88
+    },
+    {
+      "name": "PostgreSQL",
+      "role": "Content Database",
+      "capabilities": [
+        "database"
+      ],
+      "license": "PostgreSQL",
+      "popularity": 0.95
+    },
+    {
+      "name": "Keycloak",
+      "role": "Authentication & User Management",
+      "capabilities": [
+        "authentication"
+      ],
+      "license": "Apache 2.0",
+      "popularity": 0.85
+    },
+    {
+      "name": "MinIO",
+      "role": "Media & File Storage",
+      "capabilities": [
+        "storage",
+        "object_storage"
+      ],
+      "license": "Apache 2.0",
+      "popularity": 0.82
+    },
+    {
+      "name": "Elasticsearch",
+      "role": "Content Search Engine",
+      "capabilities": [
+        "search"
+      ],
+      "license": "Elastic License",
+      "popularity": 0.88
+    }
+  ],
+  "connections": [
+    {
+      "from": "Django",
+      "to": "PostgreSQL",
+      "type": "compatible_with",
+      "strength": 0.9,
+      "evidence": "Django has excellent built-in PostgreSQL support"
+    },
+    {
+      "from": "Django",
+      "to": "MinIO",
+      "type": "compatible_with",
+      "strength": 0.8,
+      "evidence": "Django has packages for MinIO integration"
+    },
+    {
+      "from": "PostgreSQL",
+      "to": "Elasticsearch",
+      "type": "compatible_with",
+      "strength": 0.75,
+      "evidence": "Common pattern: PostgreSQL for data, Elasticsearch for search"
+    },
+    {
+      "from": "MinIO",
+      "to": "Django",
+      "type": "compatible_with",
+      "strength": 0.75,
+      "evidence": "django-minio-storage package available"
+    }
+  ]
+}

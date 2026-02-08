@@ -1,0 +1,43 @@
+﻿{
+  "name": "Modern CMS Example",
+  "description": "Complete CMS with Django, PostgreSQL, MinIO, Keycloak, Elasticsearch",
+  "complexity": 0.7,
+  "confidence": 0.853,
+  "components": [
+    {
+      "name": "Django",
+      "role": "CMS Framework",
+      "capabilities": ["web_framework"],
+      "license": "BSD",
+      "popularity": 0.88
+    },
+    {
+      "name": "PostgreSQL",
+      "role": "Content Database",
+      "capabilities": ["database"],
+      "license": "PostgreSQL",
+      "popularity": 0.95
+    },
+    {
+      "name": "MinIO",
+      "role": "Media Storage",
+      "capabilities": ["storage", "object_storage"],
+      "license": "Apache 2.0",
+      "popularity": 0.82
+    },
+    {
+      "name": "Keycloak",
+      "role": "Authentication",
+      "capabilities": ["authentication"],
+      "license": "Apache 2.0",
+      "popularity": 0.85
+    },
+    {
+      "name": "Elasticsearch",
+      "role": "Content Search",
+      "capabilities": ["search"],
+      "license": "Elastic License",
+      "popularity": 0.88
+    }
+  ]
+}

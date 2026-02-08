@@ -1,0 +1,22 @@
+{
+  "name": "Modern Python Web API",
+  "description": "FastAPI with PostgreSQL backend",
+  "complexity": 0.2,
+  "confidence": 0.925,
+  "components": [
+    {
+      "name": "FastAPI",
+      "role": "Web Framework",
+      "capabilities": [
+        "web_framework"
+      ]
+    },
+    {
+      "name": "PostgreSQL",
+      "role": "Database",
+      "capabilities": [
+        "database"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,38 @@
+
+version: '3.8'
+
+services:
+
+  django:
+    
+    restart: unless-stopped
+
+  postgresql:
+    
+    image: postgres:15
+    environment:
+      POSTGRES_DB: app_db
+      POSTGRES_USER: app_user
+      POSTGRES_PASSWORD: app_password
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    
+    restart: unless-stopped
+
+  keycloak:
+    
+    restart: unless-stopped
+
+  minio:
+    
+    restart: unless-stopped
+
+  elasticsearch:
+    
+    restart: unless-stopped
+
+
+volumes:
+  postgres_data:

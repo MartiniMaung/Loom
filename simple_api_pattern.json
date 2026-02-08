@@ -1,0 +1,18 @@
+{
+  "name": "Minimal Viable Architecture",
+  "description": "Minimal components to satisfy all requirements",
+  "complexity": 0.1,
+  "confidence": 0.63,
+  "components": [
+    {
+      "name": "FastAPI",
+      "role": "Application Framework",
+      "capabilities": [
+        "web_framework"
+      ],
+      "license": "MIT",
+      "popularity": 0.9
+    }
+  ],
+  "connections": []
+}
