@@ -23,7 +23,7 @@ class CapabilityType(str, Enum):
     CDN = "cdn"
     EMAIL = "email"
     OTHER = "other"
-
+    HIGH_SECURITY = "high_security"
 
 class OSSProject(BaseModel):
     """Represents an Open Source Software project."""
@@ -33,6 +33,7 @@ class OSSProject(BaseModel):
     capabilities: List[CapabilityType] = Field(default_factory=list, description="What this project can do")
     license: Optional[str] = Field(None, description="License type (MIT, Apache, GPL, etc.)")
     popularity_score: float = Field(0.0, description="Popularity metric (0-1)")
+    security_score: float = Field(0.5, description="Security rating (0-1), default 0.5")
     compatibility_tags: List[str] = Field(default_factory=list, description="Tags for compatibility")
     metadata: Dict[str, Any] = Field(default_factory=dict, description="Additional metadata")
 

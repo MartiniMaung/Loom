@@ -49,19 +49,18 @@ class SemanticGraph:
         except Exception as e:
             print(f"⚠️  Could not load graph: {e}")
             self.graph = nx.DiGraph()
-            
+  
         try:
             if self.projects_file.exists():
-                with open(self.projects_file, 'r') as f:
+                with open(self.projects_file, 'r', encoding='utf-8-sig') as f:  # <-- CHANGE HERE
                     projects_data = json.load(f)
-                
+
                 for name, data in projects_data.items():
                     self.projects[name] = OSSProject(**data)
                 print(f"📂 Loaded {len(self.projects)} projects from {self.projects_file}")
         except Exception as e:
-            print(f"⚠️  Could not load projects: {e}")
-            self.projects = {}
-        
+              print(f"⚠️  Could not load projects: {e}")         
+    
     def add_project(self, project: OSSProject) -> None:
         """Add an OSS project to the graph."""
         self.projects[project.name] = project
@@ -159,3 +158,8 @@ class SemanticGraph:
         if self.projects_file.exists():
             self.projects_file.unlink()
         print("🧹 Graph cleared!")
+
+    def get_all_projects(self) -> List[OSSProject]:
+        """Get all projects in the graph."""
+        return list(self.projects.values())
+

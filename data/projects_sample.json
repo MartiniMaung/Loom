@@ -1,0 +1,26 @@
+﻿{
+  "FastAPI": {
+    "name": "FastAPI",
+    "description": "Modern, fast web framework for building APIs with Python",
+    "capabilities": ["web_framework"],
+    "license": "MIT",
+    "popularity_score": 0.9,
+    "security_score": 0.75
+  },
+  "Django": {
+    "name": "Django",
+    "description": "High-level Python web framework with batteries included",
+    "capabilities": ["web_framework"],
+    "license": "BSD",
+    "popularity_score": 0.92,
+    "security_score": 0.85
+  },
+  "PostgreSQL": {
+    "name": "PostgreSQL",
+    "description": "Powerful, open source object-relational database system",
+    "capabilities": ["database"],
+    "license": "PostgreSQL",
+    "popularity_score": 0.95,
+    "security_score": 0.80
+  }
+}

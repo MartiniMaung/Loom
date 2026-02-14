@@ -5,13 +5,13 @@ from typing import List, Dict, Any, Optional, Tuple
 from .core import Intent, CapabilityType, OSSProject, RelationshipType
 from .graph import SemanticGraph
 
-
 class Pattern:
     """A discovered architectural pattern."""
     
-    def __init__(self, name: str, description: str):
+    def __init__(self, name: str, description: str, intent: Intent = None):        
         self.name = name
         self.description = description
+        self.intent = intent  # ⬅️⬅️⬅️ CRITICAL: ADD THIS LINE
         self.components: List[Tuple[OSSProject, str]] = []  # (project, role)
         self.connections: List[Dict[str, Any]] = []
         self.complexity: float = 0.0  # 0-1 scale
@@ -57,6 +57,23 @@ class Pattern:
             
             avg_compat = compat_score / max(1, compat_pairs)
             self.confidence = (pop_avg * 0.7) + (avg_compat * 0.3)
+            # ===== SECURITY WEIGHTING =====
+            if self.intent and CapabilityType.HIGH_SECURITY in self.intent.required_capabilities:
+               # Calculate average security score for components
+                security_scores = []
+                for comp, _ in self.components:
+                    if hasattr(comp, 'security_score') and comp.security_score is not None:
+                        security_scores.append(comp.security_score)
+                    else:
+                        # Default to 0 if security_score not available
+                        security_scores.append(0.0)
+                
+                if security_scores:
+                    avg_security = sum(security_scores) / len(security_scores)
+                    # Apply security boost: up to 20% increase for high-security patterns
+                    security_boost = avg_security * 0.2
+                    self.confidence = min(1.0, self.confidence + security_boost)
+            # ===== END SECURITY WEIGHTING =====
         else:
             self.confidence = 0.0
             
@@ -181,8 +198,9 @@ class PatternWeaver:
                 # CMS Pattern 1: Full Featured CMS
                 pattern = Pattern(
                     name="Modern Content Management System",
-                    description="Complete CMS with authentication, media storage, and search"
-                )
+                description="Complete CMS with authentication, media storage, and search",
+                intent=intent  # ADD THIS LINE
+            )           
                 
                 pattern.add_component(web_framework, "CMS Framework")
                 pattern.add_component(database, "Content Database")
@@ -223,7 +241,8 @@ class PatternWeaver:
             # E-commerce needs: web framework, database, cache, message queue, monitoring
             pattern = Pattern(
                 name="E-commerce Platform",
-                description="Scalable online store with inventory, cart, orders, and payments"
+                description="Scalable online store with inventory, cart, orders, and payments",
+                intent=intent
             )
             
             # Add web framework
@@ -262,7 +281,8 @@ class PatternWeaver:
         # Analytics Pattern
         pattern = Pattern(
             name="Real-time Analytics Dashboard",
-            description="Data processing pipeline with visualization and monitoring"
+            description="Data processing pipeline with visualization and monitoring",
+            intent=intent
         )
         
         # Add message queue for data ingestion
@@ -309,7 +329,8 @@ class PatternWeaver:
             if fastapi and postgres:
                 pattern = Pattern(
                     name="Full Stack Python API",
-                    description="Production-ready web API with PostgreSQL database"
+                    description="Production-ready web API with PostgreSQL database",
+                    intent=intent
                 )
                 pattern.add_component(fastapi, "API Framework")
                 pattern.add_component(postgres, "Primary Database")
@@ -332,7 +353,8 @@ class PatternWeaver:
         # Pattern 2: Minimal Viable Pattern (one component per capability)
         pattern = Pattern(
             name="Minimal Viable Architecture",
-            description="Minimal components to satisfy all requirements"
+            description="Minimal components to satisfy all requirements",
+            intent=intent
         )
         
         role_map = {
