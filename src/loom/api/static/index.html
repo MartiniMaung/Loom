@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loom Architecture Dashboard</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            background: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .navbar {
+            background: #2c3e50;
+            color: white;
+            padding: 1rem 2rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .navbar h1 {
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+        
+        .navbar h1 span {
+            color: #3498db;
+            font-size: 0.9rem;
+            margin-left: 1rem;
+            font-weight: 400;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .stat-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .stat-card h3 {
+            color: #7f8c8d;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 0.5rem;
+        }
+        
+        .stat-card .value {
+            font-size: 2rem;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+        
+        .stat-card .trend {
+            font-size: 0.9rem;
+            color: #27ae60;
+            margin-top: 0.5rem;
+        }
+        
+        .main-panel {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .panel {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        .panel-header {
+            background: #f8f9fa;
+            padding: 1rem 1.5rem;
+            border-bottom: 1px solid #e9ecef;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .panel-header h2 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+        
+        .panel-header button {
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: background 0.3s;
+        }
+        
+        .panel-header button:hover {
+            background: #2980b9;
+        }
+        
+        .panel-body {
+            padding: 1.5rem;
+        }
+        
+        .form-group {
+            margin-bottom: 1rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: #2c3e50;
+        }
+        
+        .form-group input, .form-group textarea, .form-group select {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 0.95rem;
+        }
+        
+        .form-group textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+        
+        .capability-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+        }
+        
+        .capability-tag {
+            background: #e9ecef;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .capability-tag.selected {
+            background: #3498db;
+            color: white;
+        }
+        
+        .result-area {
+            background: #f8f9fa;
+            padding: 1rem;
+            border-radius: 4px;
+            border: 1px solid #e9ecef;
+            max-height: 300px;
+            overflow-y: auto;
+            font-family: 'Monaco', 'Menlo', monospace;
+            font-size: 0.85rem;
+        }
+        
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1rem;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        
+        .project-card {
+            background: #f8f9fa;
+            padding: 1rem;
+            border-radius: 6px;
+            border: 1px solid #e9ecef;
+        }
+        
+        .project-card h4 {
+            margin-bottom: 0.5rem;
+            color: #2c3e50;
+        }
+        
+        .project-card .security-score {
+            display: inline-block;
+            padding: 0.25rem 0.5rem;
+            background: #27ae60;
+            color: white;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .project-card .capabilities {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.25rem;
+            margin: 0.5rem 0;
+        }
+        
+        .project-card .capability {
+            background: #e9ecef;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.7rem;
+        }
+        
+        .audit-finding {
+            padding: 0.75rem;
+            margin-bottom: 0.5rem;
+            border-radius: 4px;
+            border-left: 4px solid;
+        }
+        
+        .audit-finding.Info { border-color: #3498db; background: #ebf5ff; }
+        .audit-finding.Warning { border-color: #f39c12; background: #fff3e0; }
+        .audit-finding.Error { border-color: #e74c3c; background: #fdedeb; }
+        .audit-finding.Critical { border-color: #c0392b; background: #fbeae9; }
+        
+        .loading {
+            text-align: center;
+            padding: 2rem;
+            color: #7f8c8d;
+        }
+        
+        .error {
+            color: #e74c3c;
+            padding: 1rem;
+            background: #fdedeb;
+            border-radius: 4px;
+            margin: 1rem 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <h1>Loom Architecture Dashboard <span>v1.0 - Phase 2.2</span></h1>
+    </div>
+    
+    <div class="container">
+        <!-- Stats -->
+        <div class="stats-grid" id="stats">
+            <div class="stat-card">
+                <h3>Projects</h3>
+                <div class="value" id="project-count">-</div>
+                <div class="trend">In knowledge graph</div>
+            </div>
+            <div class="stat-card">
+                <h3>API Status</h3>
+                <div class="value" id="api-status">-</div>
+                <div class="trend" id="api-version">-</div>
+            </div>
+            <div class="stat-card">
+                <h3>Capabilities</h3>
+                <div class="value" id="capability-count">-</div>
+                <div class="trend">Available patterns</div>
+            </div>
+            <div class="stat-card">
+                <h3>Avg Security</h3>
+                <div class="value" id="avg-security">-</div>
+                <div class="trend">Score (0-1)</div>
+            </div>
+        </div>
+        
+        <!-- Main Panels -->
+        <div class="main-panel">
+            <!-- Weaver Panel -->
+            <div class="panel">
+                <div class="panel-header">
+                    <h2>🧶 Pattern Weaver</h2>
+                    <button onclick="weavePattern()">Generate</button>
+                </div>
+                <div class="panel-body">
+                    <div class="form-group">
+                        <label>Description</label>
+                        <textarea id="weave-description" placeholder="Describe your architecture...">Secure web application with database</textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Capabilities</label>
+                        <div class="capability-tags" id="capability-tags">
+                            <!-- Will be populated by JS -->
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Include Reasoning</label>
+                        <input type="checkbox" id="weave-reasoning" checked>
+                    </div>
+                    <div class="result-area" id="weave-result">
+                        Click generate to create a pattern...
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Evolver Panel -->
+            <div class="panel">
+                <div class="panel-header">
+                    <h2>🔄 Pattern Evolver</h2>
+                    <button onclick="evolvePattern()">Evolve</button>
+                </div>
+                <div class="panel-body">
+                    <div class="form-group">
+                        <label>Pattern JSON</label>
+                        <textarea id="evolve-pattern" placeholder='{"name": "Simple API", "components": ["FastAPI", "MySQL"]}'>{"name": "Simple API", "components": ["FastAPI", "MySQL"]}</textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Evolutions</label>
+                        <select id="evolve-types" multiple size="3">
+                            <option value="make_scalable" selected>Make Scalable</option>
+                            <option value="add_security">Add Security</option>
+                            <option value="optimize_cost">Optimize Cost</option>
+                        </select>
+                        <small>Hold Ctrl/Cmd to select multiple</small>
+                    </div>
+                    <div class="result-area" id="evolve-result">
+                        Click evolve to transform pattern...
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Bottom Panels -->
+        <div class="main-panel">
+            <!-- Auditor Panel -->
+            <div class="panel">
+                <div class="panel-header">
+                    <h2>🔍 Pattern Auditor</h2>
+                    <button onclick="auditPattern()">Audit</button>
+                </div>
+                <div class="panel-body">
+                    <div class="form-group">
+                        <label>Pattern JSON</label>
+                        <textarea id="audit-pattern" placeholder='{"name": "Simple API", "components": ["FastAPI", "MySQL"]}'>{"name": "Simple API", "components": ["FastAPI", "MySQL"]}</textarea>
+                    </div>
+                    <div class="result-area" id="audit-result">
+                        Click audit to analyze pattern...
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Projects Panel -->
+            <div class="panel">
+                <div class="panel-header">
+                    <h2>📚 Project Explorer</h2>
+                    <button onclick="loadProjects()">Refresh</button>
+                </div>
+                <div class="panel-body">
+                    <div class="form-group">
+                        <label>Filter by Capability</label>
+                        <select id="project-filter" onchange="filterProjects()">
+                            <option value="">All Projects</option>
+                        </select>
+                    </div>
+                    <div class="project-grid" id="project-grid">
+                        Loading projects...
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        const API_BASE = 'http://localhost:8000/api/v1';
+        let allProjects = [];
+        
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            loadStats();
+            loadProjects();
+            setupCapabilityTags();
+        });
+        
+        // Load stats
+        async function loadStats() {
+            try {
+                const health = await fetch(`${API_BASE}/health`).then(r => r.json());
+                document.getElementById('api-status').textContent = health.status;
+                document.getElementById('api-version').textContent = `v${health.version}`;
+            } catch (e) {
+                document.getElementById('api-status').textContent = 'Offline';
+            }
+            
+            try {
+                const projects = await fetch(`${API_BASE}/projects`).then(r => r.json());
+                document.getElementById('project-count').textContent = projects.total;
+                
+                // Calculate average security
+                if (projects.projects.length > 0) {
+                    const avg = projects.projects.reduce((sum, p) => sum + p.security_score, 0) / projects.projects.length;
+                    document.getElementById('avg-security').textContent = avg.toFixed(2);
+                }
+                
+                // Get unique capabilities
+                const caps = new Set();
+                projects.projects.forEach(p => p.capabilities.forEach(c => caps.add(c)));
+                document.getElementById('capability-count').textContent = caps.size;
+                
+                // Populate filter dropdown
+                const filter = document.getElementById('project-filter');
+                caps.forEach(c => {
+                    const option = document.createElement('option');
+                    option.value = c;
+                    option.textContent = c;
+                    filter.appendChild(option);
+                });
+            } catch (e) {
+                console.error('Failed to load stats', e);
+            }
+        }
+        
+        // Setup capability tags
+        function setupCapabilityTags() {
+            const tags = [
+                'web_framework', 'database', 'message_queue', 
+                'cache', 'authentication', 'monitoring',
+                'high_security', 'cost_optimized', 'high_scalability'
+            ];
+            
+            const container = document.getElementById('capability-tags');
+            tags.forEach(tag => {
+                const span = document.createElement('span');
+                span.className = 'capability-tag';
+                span.textContent = tag;
+                span.onclick = function() {
+                    this.classList.toggle('selected');
+                };
+                container.appendChild(span);
+            });
+        }
+        
+        // Get selected capabilities
+        function getSelectedCapabilities() {
+            const selected = [];
+            document.querySelectorAll('#capability-tags .capability-tag.selected').forEach(tag => {
+                selected.push(tag.textContent);
+            });
+            return selected;
+        }
+        
+        // Weave pattern
+        async function weavePattern() {
+            const description = document.getElementById('weave-description').value;
+            const capabilities = getSelectedCapabilities();
+            const includeReasoning = document.getElementById('weave-reasoning').checked;
+            
+            if (capabilities.length === 0) {
+                alert('Please select at least one capability');
+                return;
+            }
+            
+            const resultDiv = document.getElementById('weave-result');
+            resultDiv.innerHTML = '<div class="loading">Generating pattern...</div>';
+            
+            try {
+                const response = await fetch(`${API_BASE}/weave`, {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({
+                        description: description,
+                        capabilities: capabilities,
+                        include_reasoning: includeReasoning
+                    })
+                });
+                
+                const data = await response.json();
+                resultDiv.innerHTML = '<pre>' + JSON.stringify(data, null, 2) + '</pre>';
+            } catch (e) {
+                resultDiv.innerHTML = `<div class="error">Error: ${e.message}</div>`;
+            }
+        }
+        
+        // Evolve pattern
+        async function evolvePattern() {
+            const patternText = document.getElementById('evolve-pattern').value;
+            const select = document.getElementById('evolve-types');
+            const evolutions = Array.from(select.selectedOptions).map(opt => opt.value);
+            
+            try {
+                const patternJson = JSON.parse(patternText);
+                
+                const resultDiv = document.getElementById('evolve-result');
+                resultDiv.innerHTML = '<div class="loading">Evolving pattern...</div>';
+                
+                const response = await fetch(`${API_BASE}/evolve`, {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({
+                        pattern_json: patternJson,
+                        evolutions: evolutions,
+                        include_reasoning: true
+                    })
+                });
+                
+                const data = await response.json();
+                resultDiv.innerHTML = '<pre>' + JSON.stringify(data, null, 2) + '</pre>';
+            } catch (e) {
+                document.getElementById('evolve-result').innerHTML = `<div class="error">Invalid JSON: ${e.message}</div>`;
+            }
+        }
+        
+        // Audit pattern
+        async function auditPattern() {
+            const patternText = document.getElementById('audit-pattern').value;
+            
+            try {
+                const patternJson = JSON.parse(patternText);
+                
+                const resultDiv = document.getElementById('audit-result');
+                resultDiv.innerHTML = '<div class="loading">Auditing pattern...</div>';
+                
+                const response = await fetch(`${API_BASE}/audit`, {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({
+                        pattern_json: patternJson,
+                        format: 'json'
+                    })
+                });
+                
+                const data = await response.json();
+                
+                // Format findings nicely
+                let html = '';
+                if (data.findings) {
+                    data.findings.forEach(f => {
+                        html += `<div class="audit-finding ${f.severity}">`;
+                        html += `<strong>${f.category}</strong> (${f.severity}): ${f.message}`;
+                        if (f.recommendation) {
+                            html += `<br><small>💡 ${f.recommendation}</small>`;
+                        }
+                        html += '</div>';
+                    });
+                }
+                resultDiv.innerHTML = html || '<pre>' + JSON.stringify(data, null, 2) + '</pre>';
+            } catch (e) {
+                document.getElementById('audit-result').innerHTML = `<div class="error">Invalid JSON: ${e.message}</div>`;
+            }
+        }
+        
+        // Load projects
+        async function loadProjects() {
+            const filter = document.getElementById('project-filter').value;
+            let url = `${API_BASE}/projects?limit=50`;
+            if (filter) {
+                url += `&capability=${filter}`;
+            }
+            
+            const grid = document.getElementById('project-grid');
+            grid.innerHTML = '<div class="loading">Loading projects...</div>';
+            
+            try {
+                const response = await fetch(url);
+                const data = await response.json();
+                allProjects = data.projects;
+                displayProjects(allProjects);
+            } catch (e) {
+                grid.innerHTML = `<div class="error">Error: ${e.message}</div>`;
+            }
+        }
+        
+        // Filter projects
+        function filterProjects() {
+            loadProjects();
+        }
+        
+        // Display projects
+        function displayProjects(projects) {
+            const grid = document.getElementById('project-grid');
+            
+            if (projects.length === 0) {
+                grid.innerHTML = '<div class="loading">No projects found</div>';
+                return;
+            }
+            
+            let html = '';
+            projects.forEach(p => {
+                html += '<div class="project-card">';
+                html += `<h4>${p.name}</h4>`;
+                html += `<span class="security-score">${p.security_score.toFixed(2)}</span>`;
+                html += '<div class="capabilities">';
+                p.capabilities.forEach(c => {
+                    html += `<span class="capability">${c}</span>`;
+                });
+                html += '</div>';
+                if (p.license) {
+                    html += `<small>📜 ${p.license}</small>`;
+                }
+                html += '</div>';
+            });
+            
+            grid.innerHTML = html;
+        }
+    </script>
+</body>
+</html>

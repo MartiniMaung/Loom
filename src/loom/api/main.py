@@ -3,8 +3,12 @@ Main FastAPI Application
 """
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
+from fastapi.responses import FileResponse
 import time
 import logging
+import os
+from pathlib import Path
 
 from .config.settings import settings
 from .routes import health, projects, weave, evolve, audit
@@ -47,6 +51,21 @@ app.include_router(weave.router, prefix="/api/v1", tags=["weave"])
 app.include_router(evolve.router, prefix="/api/v1", tags=["evolve"])
 app.include_router(audit.router, prefix="/api/v1", tags=["audit"])
 
+# Serve static files
+static_dir = Path(__file__).parent / "static"
+if static_dir.exists():
+    app.mount("/static", StaticFiles(directory=str(static_dir)), name="static")
+    logger.info(f"Serving static files from {static_dir}")
+
+# Dashboard route
+@app.get("/dashboard", include_in_schema=False)
+async def get_dashboard():
+    """Serve the dashboard HTML"""
+    dashboard_path = static_dir / "index.html"
+    if dashboard_path.exists():
+        return FileResponse(dashboard_path)
+    return {"error": "Dashboard not found"}
+
 # Root endpoint
 @app.get("/")
 async def root():
@@ -55,6 +74,7 @@ async def root():
         "version": settings.API_VERSION,
         "status": "operational",
         "docs": "/docs",
+        "dashboard": "/dashboard",
         "endpoints": {
             "health": "GET /api/v1/health",
             "projects": "GET /api/v1/projects",
