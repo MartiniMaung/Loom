@@ -7,11 +7,12 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse
 import time
 import logging
-import os
 from pathlib import Path
 
 from .config.settings import settings
-from .routes import health, projects, weave, evolve, audit
+from .routes import health, projects, weave, evolve, audit, admin
+from .middleware.auth import APIKeyMiddleware
+from .middleware.rate_limit import RateLimitMiddleware
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
@@ -35,6 +36,13 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+# Custom middlewares (order matters!)
+if settings.ENABLE_API_KEYS:
+    app.add_middleware(APIKeyMiddleware)
+
+if settings.RATE_LIMIT_ENABLED:
+    app.add_middleware(RateLimitMiddleware)
+
 # Request timing middleware
 @app.middleware("http")
 async def add_process_time_header(request, call_next):
@@ -50,6 +58,7 @@ app.include_router(projects.router, prefix="/api/v1", tags=["projects"])
 app.include_router(weave.router, prefix="/api/v1", tags=["weave"])
 app.include_router(evolve.router, prefix="/api/v1", tags=["evolve"])
 app.include_router(audit.router, prefix="/api/v1", tags=["audit"])
+app.include_router(admin.router, prefix="/api/v1", tags=["admin"])
 
 # Serve static files
 static_dir = Path(__file__).parent / "static"
@@ -75,13 +84,18 @@ async def root():
         "status": "operational",
         "docs": "/docs",
         "dashboard": "/dashboard",
+        "authentication": "API Key required (except /health, /docs, /dashboard)",
+        "rate_limiting": f"{settings.RATE_LIMIT_REQUESTS} requests per {settings.RATE_LIMIT_PERIOD}s",
+        "demo_key": "POST /api/v1/auth/demo",
+        "admin": "/api/v1/admin/keys (admin token required)",
         "endpoints": {
-            "health": "GET /api/v1/health",
-            "projects": "GET /api/v1/projects",
-            "projects_by_name": "GET /api/v1/projects/{name}",
-            "weave": "POST /api/v1/weave",
-            "evolve": "POST /api/v1/evolve",
-            "audit": "POST /api/v1/audit"
+            "health": "GET /api/v1/health (public)",
+            "projects": "GET /api/v1/projects (auth required)",
+            "weave": "POST /api/v1/weave (auth required)",
+            "evolve": "POST /api/v1/evolve (auth required)",
+            "audit": "POST /api/v1/audit (auth required)",
+            "auth_demo": "POST /api/v1/auth/demo (public)",
+            "admin_keys": "POST/GET/DELETE /api/v1/admin/keys (admin token required)"
         }
     }
 
