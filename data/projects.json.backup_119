@@ -3,8 +3,9 @@
     "name": "Python",
     "description": "All Algorithms implemented in Python",
     "capabilities": [
+      "language",
       "runtime",
-      "language"
+      "scripting"
     ],
     "github_url": null,
     "license": "MIT License",
@@ -21,8 +22,9 @@
     "name": "Java",
     "description": "All Algorithms implemented in Java",
     "capabilities": [
+      "language",
       "runtime",
-      "language"
+      "jvm"
     ],
     "github_url": null,
     "license": "MIT License",
@@ -40,8 +42,8 @@
     "description": "Django - Popular OSS project",
     "capabilities": [
       "web_framework",
-      "authentication",
-      "database"
+      "python",
+      "fullstack"
     ],
     "github_url": null,
     "license": "Open Source",
@@ -58,7 +60,9 @@
     "name": "Flask",
     "description": "Flask - Popular OSS project",
     "capabilities": [
-      "web_framework"
+      "web_framework",
+      "python",
+      "micro"
     ],
     "github_url": null,
     "license": "Open Source",
@@ -76,7 +80,8 @@
     "description": "Express - Popular OSS project",
     "capabilities": [
       "web_framework",
-      "api_gateway"
+      "nodejs",
+      "api"
     ],
     "github_url": null,
     "license": "Open Source",
@@ -94,8 +99,8 @@
     "description": "Spring Boot - Popular OSS project",
     "capabilities": [
       "web_framework",
-      "authentication",
-      "database"
+      "java",
+      "microservice"
     ],
     "github_url": null,
     "license": "Open Source",
@@ -113,8 +118,8 @@
     "description": "Rails - Popular OSS project",
     "capabilities": [
       "web_framework",
-      "database",
-      "authentication"
+      "ruby",
+      "fullstack"
     ],
     "github_url": null,
     "license": "Open Source",
@@ -132,7 +137,8 @@
     "description": "PostgreSQL - Popular OSS project",
     "capabilities": [
       "database",
-      "storage"
+      "relational",
+      "sql"
     ],
     "github_url": null,
     "license": "Open Source",
@@ -150,7 +156,8 @@
     "description": "MySQL - Popular OSS project",
     "capabilities": [
       "database",
-      "storage"
+      "relational",
+      "sql"
     ],
     "github_url": null,
     "license": "Open Source",
@@ -168,8 +175,8 @@
     "description": "MongoDB - Popular OSS project",
     "capabilities": [
       "database",
-      "storage",
-      "vector_db"
+      "nosql",
+      "document"
     ],
     "github_url": null,
     "license": "Open Source",
@@ -186,9 +193,9 @@
     "name": "Redis",
     "description": "Redis - Popular OSS project",
     "capabilities": [
-      "cache",
       "database",
-      "message_queue"
+      "cache",
+      "key_value"
     ],
     "github_url": null,
     "license": "Open Source",
@@ -205,8 +212,8 @@
     "name": "Elasticsearch",
     "description": "Elasticsearch - Popular OSS project",
     "capabilities": [
-      "search",
       "database",
+      "search",
       "analytics"
     ],
     "github_url": null,
@@ -225,7 +232,8 @@
     "description": "RabbitMQ - Popular OSS project",
     "capabilities": [
       "message_queue",
-      "message_broker"
+      "amqp",
+      "broker"
     ],
     "github_url": null,
     "license": "Open Source",
@@ -263,7 +271,7 @@
     "capabilities": [
       "authentication",
       "authorization",
-      "identity"
+      "sso"
     ],
     "github_url": null,
     "license": "Open Source",
@@ -281,7 +289,8 @@
     "description": "Ory Kratos - Popular OSS project",
     "capabilities": [
       "authentication",
-      "identity"
+      "identity",
+      "api"
     ],
     "github_url": null,
     "license": "Open Source",
@@ -299,7 +308,8 @@
     "description": "Prometheus - Popular OSS project",
     "capabilities": [
       "monitoring",
-      "metrics"
+      "metrics",
+      "timeseries"
     ],
     "github_url": null,
     "license": "Open Source",
@@ -316,8 +326,9 @@
     "name": "Grafana",
     "description": "Grafana - Popular OSS project",
     "capabilities": [
-      "monitoring",
-      "visualization"
+      "visualization",
+      "dashboard",
+      "metrics"
     ],
     "github_url": null,
     "license": "Open Source",
@@ -335,7 +346,8 @@
     "description": "Jaeger - Popular OSS project",
     "capabilities": [
       "tracing",
-      "monitoring"
+      "distributed",
+      "observability"
     ],
     "github_url": null,
     "license": "Open Source",
@@ -352,8 +364,9 @@
     "name": "Terraform",
     "description": "Terraform - Popular OSS project",
     "capabilities": [
-      "infrastructure",
-      "iac"
+      "iac",
+      "provisioning",
+      "cloud"
     ],
     "github_url": null,
     "license": "Open Source",
@@ -370,9 +383,9 @@
     "name": "Ansible",
     "description": "Ansible - Popular OSS project",
     "capabilities": [
-      "infrastructure",
-      "automation",
-      "iac"
+      "iac",
+      "configuration",
+      "automation"
     ],
     "github_url": null,
     "license": "Open Source",
@@ -390,7 +403,8 @@
     "description": "Node.js - Popular OSS project",
     "capabilities": [
       "runtime",
-      "javascript"
+      "javascript",
+      "server"
     ],
     "github_url": null,
     "license": "Open Source",
@@ -427,12 +441,1812 @@
     "description": "Logstash - Popular OSS project",
     "capabilities": [
       "logging",
-      "etl"
+      "etl",
+      "pipeline"
     ],
     "github_url": null,
     "license": "Open Source",
     "security_score": 0.7,
     "popularity_score": 0.85,
+    "compatibility_tags": [],
+    "metadata": {},
+    "cost_score": 0.5,
+    "complexity_score": 0.5,
+    "maturity_score": 0.95,
+    "license_risk_score": 0.5
+  },
+  "Kong": {
+    "name": "Kong",
+    "description": "Kong - Kong/kong",
+    "capabilities": [
+      "api_gateway",
+      "reverse_proxy",
+      "nginx"
+    ],
+    "github_url": "https://github.com/Kong/kong",
+    "license": "Open Source",
+    "security_score": 0.7,
+    "popularity_score": 0.9,
+    "compatibility_tags": [],
+    "metadata": {},
+    "cost_score": 0.5,
+    "complexity_score": 0.5,
+    "maturity_score": 0.9,
+    "license_risk_score": 0.5
+  },
+  "Apache APISIX": {
+    "name": "Apache APISIX",
+    "description": "Apache APISIX - apache/apisix",
+    "capabilities": [
+      "api_gateway",
+      "reverse_proxy",
+      "dynamic"
+    ],
+    "github_url": "https://github.com/apache/apisix",
+    "license": "Open Source",
+    "security_score": 0.7,
+    "popularity_score": 0.85,
+    "compatibility_tags": [],
+    "metadata": {},
+    "cost_score": 0.5,
+    "complexity_score": 0.5,
+    "maturity_score": 0.8,
+    "license_risk_score": 0.5
+  },
+  "Traefik": {
+    "name": "Traefik",
+    "description": "Traefik - traefik/traefik",
+    "capabilities": [
+      "reverse_proxy",
+      "load_balancer",
+      "kubernetes"
+    ],
+    "github_url": "https://github.com/traefik/traefik",
+    "license": "Open Source",
+    "security_score": 0.7,
+    "popularity_score": 0.95,
+    "compatibility_tags": [],
+    "metadata": {},
+    "cost_score": 0.5,
+    "complexity_score": 0.5,
+    "maturity_score": 0.9,
+    "license_risk_score": 0.5
+  },
+  "HAProxy": {
+    "name": "HAProxy",
+    "description": "HAProxy - haproxy/haproxy",
+    "capabilities": [
+      "load_balancer",
+      "reverse_proxy",
+      "tcp"
+    ],
+    "github_url": "https://github.com/haproxy/haproxy",
+    "license": "Open Source",
+    "security_score": 0.7,
+    "popularity_score": 0.8,
+    "compatibility_tags": [],
+    "metadata": {},
+    "cost_score": 0.5,
+    "complexity_score": 0.5,
+    "maturity_score": 1.0,
+    "license_risk_score": 0.5
+  },
+  "Envoy": {
+    "name": "Envoy",
+    "description": "Envoy - envoyproxy/envoy",
+    "capabilities": [
+      "proxy",
+      "service_mesh",
+      "edge"
+    ],
+    "github_url": "https://github.com/envoyproxy/envoy",
+    "license": "Open Source",
+    "security_score": 0.7,
+    "popularity_score": 0.9,
+    "compatibility_tags": [],
+    "metadata": {},
+    "cost_score": 0.5,
+    "complexity_score": 0.5,
+    "maturity_score": 0.9,
+    "license_risk_score": 0.5
+  },
+  "Istio": {
+    "name": "Istio",
+    "description": "Istio - istio/istio",
+    "capabilities": [
+      "service_mesh",
+      "traffic_management",
+      "security"
+    ],
+    "github_url": "https://github.com/istio/istio",
+    "license": "Open Source",
+    "security_score": 0.7,
+    "popularity_score": 0.9,
+    "compatibility_tags": [],
+    "metadata": {},
+    "cost_score": 0.5,
+    "complexity_score": 0.5,
+    "maturity_score": 0.85,
+    "license_risk_score": 0.5
+  },
+  "Linkerd": {
+    "name": "Linkerd",
+    "description": "Linkerd - linkerd/linkerd2",
+    "capabilities": [
+      "service_mesh",
+      "observability",
+      "kubernetes"
+    ],
+    "github_url": "https://github.com/linkerd/linkerd2",
+    "license": "Open Source",
+    "security_score": 0.7,
+    "popularity_score": 0.85,
+    "compatibility_tags": [],
+    "metadata": {},
+    "cost_score": 0.5,
+    "complexity_score": 0.5,
+    "maturity_score": 0.9,
+    "license_risk_score": 0.5
+  },
+  "Consul": {
+    "name": "Consul",
+    "description": "Consul - hashicorp/consul",
+    "capabilities": [
+      "service_discovery",
+      "service_mesh",
+      "kv_store"
+    ],
+    "github_url": "https://github.com/hashicorp/consul",
+    "license": "Open Source",
+    "security_score": 0.7,
+    "popularity_score": 0.9,
+    "compatibility_tags": [],
+    "metadata": {},
+    "cost_score": 0.5,
+    "complexity_score": 0.5,
+    "maturity_score": 0.9,
+    "license_risk_score": 0.5
+  },
+  "Docker": {
+    "name": "Docker",
+    "description": "Docker - moby/moby",
+    "capabilities": [
+      "container",
+      "runtime",
+      "image"
+    ],
+    "github_url": "https://github.com/moby/moby",
+    "license": "Open Source",
+    "security_score": 0.7,
+    "popularity_score": 0.95,
+    "compatibility_tags": [],
+    "metadata": {},
+    "cost_score": 0.5,
+    "complexity_score": 0.5,
+    "maturity_score": 0.9,
+    "license_risk_score": 0.5
+  },
+  "Kubernetes": {
+    "name": "Kubernetes",
+    "description": "Kubernetes - kubernetes/kubernetes",
+    "capabilities": [
+      "orchestration",
+      "containers",
+      "scheduling"
+    ],
+    "github_url": "https://github.com/kubernetes/kubernetes",
+    "license": "Open Source",
+    "security_score": 0.7,
+    "popularity_score": 1.0,
+    "compatibility_tags": [],
+    "metadata": {},
+    "cost_score": 0.5,
+    "complexity_score": 0.5,
+    "maturity_score": 0.9,
+    "license_risk_score": 0.5
+  },
+  "Podman": {
+    "name": "Podman",
+    "description": "Podman - containers/podman",
+    "capabilities": [
+      "container",
+      "runtime",
+      "daemonless"
+    ],
+    "github_url": "https://github.com/containers/podman",
+    "license": "Open Source",
+    "security_score": 0.7,
+    "popularity_score": 0.9,
+    "compatibility_tags": [],
+    "metadata": {},
+    "cost_score": 0.5,
+    "complexity_score": 0.5,
+    "maturity_score": 0.85,
+    "license_risk_score": 0.5
+  },
+  "OpenShift": {
+    "name": "OpenShift",
+    "description": "OpenShift - openshift/origin",
+    "capabilities": [
+      "paas",
+      "kubernetes",
+      "enterprise"
+    ],
+    "github_url": "https://github.com/openshift/origin",
+    "license": "Open Source",
+    "security_score": 0.7,
+    "popularity_score": 0.8,
+    "compatibility_tags": [],
+    "metadata": {},
+    "cost_score": 0.5,
+    "complexity_score": 0.5,
+    "maturity_score": 0.95,
+    "license_risk_score": 0.5
+  },
+  "Jenkins": {
+    "name": "Jenkins",
+    "description": "Jenkins - jenkinsci/jenkins",
+    "capabilities": [
+      "ci_cd",
+      "automation",
+      "pipeline"
+    ],
+    "github_url": "https://github.com/jenkinsci/jenkins",
+    "license": "Open Source",
+    "security_score": 0.7,
+    "popularity_score": 0.9,
+    "compatibility_tags": [],
+    "metadata": {},
+    "cost_score": 0.5,
+    "complexity_score": 0.5,
+    "maturity_score": 0.95,
+    "license_risk_score": 0.5
+  },
+  "GitLab CI": {
+    "name": "GitLab CI",
+    "description": "GitLab CI - gitlabhq/gitlabhq",
+    "capabilities": [
+      "ci_cd",
+      "git",
+      "automation"
+    ],
+    "github_url": "https://github.com/gitlabhq/gitlabhq",
+    "license": "Open Source",
+    "security_score": 0.7,
+    "popularity_score": 0.9,
+    "compatibility_tags": [],
+    "metadata": {},
+    "cost_score": 0.5,
+    "complexity_score": 0.5,
+    "maturity_score": 0.9,
+    "license_risk_score": 0.5
+  },
+  "GitHub Actions": {
+    "name": "GitHub Actions",
+    "description": "GitHub Actions - actions/runner",
+    "capabilities": [
+      "ci_cd",
+      "automation",
+      "workflow"
+    ],
+    "github_url": "https://github.com/actions/runner",
+    "license": "Open Source",
+    "security_score": 0.7,
+    "popularity_score": 0.8,
+    "compatibility_tags": [],
+    "metadata": {},
+    "cost_score": 0.5,
+    "complexity_score": 0.5,
+    "maturity_score": 0.85,
+    "license_risk_score": 0.5
+  },
+  "ArgoCD": {
+    "name": "ArgoCD",
+    "description": "ArgoCD - argoproj/argo-cd",
+    "capabilities": [
+      "gitops",
+      "cd",
+      "kubernetes"
+    ],
+    "github_url": "https://github.com/argoproj/argo-cd",
+    "license": "Open Source",
+    "security_score": 0.7,
+    "popularity_score": 0.9,
+    "compatibility_tags": [],
+    "metadata": {},
+    "cost_score": 0.5,
+    "complexity_score": 0.5,
+    "maturity_score": 0.85,
+    "license_risk_score": 0.5
+  },
+  "Spinnaker": {
+    "name": "Spinnaker",
+    "description": "Spinnaker - spinnaker/spinnaker",
+    "capabilities": [
+      "cd",
+      "multicloud",
+      "pipeline"
+    ],
+    "github_url": "https://github.com/spinnaker/spinnaker",
+    "license": "Open Source",
+    "security_score": 0.7,
+    "popularity_score": 0.8,
+    "compatibility_tags": [],
+    "metadata": {},
+    "cost_score": 0.5,
+    "complexity_score": 0.5,
+    "maturity_score": 0.9,
+    "license_risk_score": 0.5
+  },
+  "Apollo Server": {
+    "name": "Apollo Server",
+    "description": "Apollo Server - apollographql/apollo-server",
+    "capabilities": [
+      "unknown"
+    ],
+    "github_url": "https://github.com/apollographql/apollo-server",
+    "license": "Open Source",
+    "security_score": 0.7,
+    "popularity_score": 0.85,
+    "compatibility_tags": [],
+    "metadata": {},
+    "cost_score": 0.5,
+    "complexity_score": 0.5,
+    "maturity_score": 0.9,
+    "license_risk_score": 0.5
+  },
+  "Hasura": {
+    "name": "Hasura",
+    "description": "Hasura - hasura/graphql-engine",
+    "capabilities": [
+      "unknown"
+    ],
+    "github_url": "https://github.com/hasura/graphql-engine",
+    "license": "Open Source",
+    "security_score": 0.7,
+    "popularity_score": 0.9,
+    "compatibility_tags": [],
+    "metadata": {},
+    "cost_score": 0.5,
+    "complexity_score": 0.5,
+    "maturity_score": 0.85,
+    "license_risk_score": 0.5
+  },
+  "GraphQL Yoga": {
+    "name": "GraphQL Yoga",
+    "description": "GraphQL Yoga - dotansimha/graphql-yoga",
+    "capabilities": [
+      "unknown"
+    ],
+    "github_url": "https://github.com/dotansimha/graphql-yoga",
+    "license": "Open Source",
+    "security_score": 0.7,
+    "popularity_score": 0.8,
+    "compatibility_tags": [],
+    "metadata": {},
+    "cost_score": 0.5,
+    "complexity_score": 0.5,
+    "maturity_score": 0.8,
+    "license_risk_score": 0.5
+  },
+  "Cassandra": {
+    "name": "Cassandra",
+    "description": "Cassandra - apache/cassandra",
+    "capabilities": [
+      "database",
+      "nosql",
+      "wide_column"
+    ],
+    "github_url": "https://github.com/apache/cassandra",
+    "license": "Open Source",
+    "security_score": 0.7,
+    "popularity_score": 0.8,
+    "compatibility_tags": [],
+    "metadata": {},
+    "cost_score": 0.5,
+    "complexity_score": 0.5,
+    "maturity_score": 0.95,
+    "license_risk_score": 0.5
+  },
+  "CouchDB": {
+    "name": "CouchDB",
+    "description": "CouchDB - apache/couchdb",
+    "capabilities": [
+      "database",
+      "nosql",
+      "document"
+    ],
+    "github_url": "https://github.com/apache/couchdb",
+    "license": "Open Source",
+    "security_score": 0.7,
+    "popularity_score": 0.8,
+    "compatibility_tags": [],
+    "metadata": {},
+    "cost_score": 0.5,
+    "complexity_score": 0.5,
+    "maturity_score": 1.0,
+    "license_risk_score": 0.5
+  },
+  "Neo4j": {
+    "name": "Neo4j",
+    "description": "Neo4j - neo4j/neo4j",
+    "capabilities": [
+      "database",
+      "graph",
+      "nosql"
+    ],
+    "github_url": "https://github.com/neo4j/neo4j",
+    "license": "Open Source",
+    "security_score": 0.7,
+    "popularity_score": 0.85,
+    "compatibility_tags": [],
+    "metadata": {},
+    "cost_score": 0.5,
+    "complexity_score": 0.5,
+    "maturity_score": 0.95,
+    "license_risk_score": 0.5
+  },
+  "InfluxDB": {
+    "name": "InfluxDB",
+    "description": "InfluxDB - influxdata/influxdb",
+    "capabilities": [
+      "database",
+      "timeseries",
+      "metrics"
+    ],
+    "github_url": "https://github.com/influxdata/influxdb",
+    "license": "Open Source",
+    "security_score": 0.7,
+    "popularity_score": 0.9,
+    "compatibility_tags": [],
+    "metadata": {},
+    "cost_score": 0.5,
+    "complexity_score": 0.5,
+    "maturity_score": 0.9,
+    "license_risk_score": 0.5
+  },
+  "ClickHouse": {
+    "name": "ClickHouse",
+    "description": "ClickHouse - ClickHouse/ClickHouse",
+    "capabilities": [
+      "database",
+      "olap",
+      "columnar"
+    ],
+    "github_url": "https://github.com/ClickHouse/ClickHouse",
+    "license": "Open Source",
+    "security_score": 0.7,
+    "popularity_score": 0.9,
+    "compatibility_tags": [],
+    "metadata": {},
+    "cost_score": 0.5,
+    "complexity_score": 0.5,
+    "maturity_score": 0.9,
+    "license_risk_score": 0.5
+  },
+  "MinIO": {
+    "name": "MinIO",
+    "description": "MinIO - minio/minio",
+    "capabilities": [
+      "storage",
+      "s3",
+      "object"
+    ],
+    "github_url": "https://github.com/minio/minio",
+    "license": "Open Source",
+    "security_score": 0.7,
+    "popularity_score": 0.95,
+    "compatibility_tags": [],
+    "metadata": {},
+    "cost_score": 0.5,
+    "complexity_score": 0.5,
+    "maturity_score": 0.9,
+    "license_risk_score": 0.5
+  },
+  "Ceph": {
+    "name": "Ceph",
+    "description": "Ceph - ceph/ceph",
+    "capabilities": [
+      "storage",
+      "distributed",
+      "object"
+    ],
+    "github_url": "https://github.com/ceph/ceph",
+    "license": "Open Source",
+    "security_score": 0.7,
+    "popularity_score": 0.85,
+    "compatibility_tags": [],
+    "metadata": {},
+    "cost_score": 0.5,
+    "complexity_score": 0.5,
+    "maturity_score": 1.0,
+    "license_risk_score": 0.5
+  },
+  "SeaweedFS": {
+    "name": "SeaweedFS",
+    "description": "SeaweedFS - seaweedfs/seaweedfs",
+    "capabilities": [
+      "storage",
+      "distributed",
+      "fast"
+    ],
+    "github_url": "https://github.com/seaweedfs/seaweedfs",
+    "license": "Open Source",
+    "security_score": 0.7,
+    "popularity_score": 0.9,
+    "compatibility_tags": [],
+    "metadata": {},
+    "cost_score": 0.5,
+    "complexity_score": 0.5,
+    "maturity_score": 0.9,
+    "license_risk_score": 0.5
+  },
+  "Datadog": {
+    "name": "Datadog",
+    "description": "Datadog - DataDog/dd-trace-py",
+    "capabilities": [
+      "monitoring",
+      "saas",
+      "apm"
+    ],
+    "github_url": "https://github.com/DataDog/dd-trace-py",
+    "license": "Open Source",
+    "security_score": 0.7,
+    "popularity_score": 0.6,
+    "compatibility_tags": [],
+    "metadata": {},
+    "cost_score": 0.5,
+    "complexity_score": 0.5,
+    "maturity_score": 0.95,
+    "license_risk_score": 0.5
+  },
+  "New Relic": {
+    "name": "New Relic",
+    "description": "New Relic - newrelic/newrelic-python-agent",
+    "capabilities": [
+      "apm",
+      "monitoring",
+      "saas"
+    ],
+    "github_url": "https://github.com/newrelic/newrelic-python-agent",
+    "license": "Open Source",
+    "security_score": 0.7,
+    "popularity_score": 0.5,
+    "compatibility_tags": [],
+    "metadata": {},
+    "cost_score": 0.5,
+    "complexity_score": 0.5,
+    "maturity_score": 0.95,
+    "license_risk_score": 0.5
+  },
+  "Elastic APM": {
+    "name": "Elastic APM",
+    "description": "Elastic APM - elastic/apm-agent-python",
+    "capabilities": [
+      "apm",
+      "monitoring",
+      "elastic"
+    ],
+    "github_url": "https://github.com/elastic/apm-agent-python",
+    "license": "Open Source",
+    "security_score": 0.7,
+    "popularity_score": 0.5,
+    "compatibility_tags": [],
+    "metadata": {},
+    "cost_score": 0.5,
+    "complexity_score": 0.5,
+    "maturity_score": 0.85,
+    "license_risk_score": 0.5
+  },
+  "Loki": {
+    "name": "Loki",
+    "description": "Loki - grafana/loki",
+    "capabilities": [
+      "logging",
+      "grafana",
+      "prometheus"
+    ],
+    "github_url": "https://github.com/grafana/loki",
+    "license": "Open Source",
+    "security_score": 0.7,
+    "popularity_score": 0.9,
+    "compatibility_tags": [],
+    "metadata": {},
+    "cost_score": 0.5,
+    "complexity_score": 0.5,
+    "maturity_score": 0.85,
+    "license_risk_score": 0.5
+  },
+  "Vault": {
+    "name": "Vault",
+    "description": "Vault - hashicorp/vault",
+    "capabilities": [
+      "secrets",
+      "encryption",
+      "security"
+    ],
+    "github_url": "https://github.com/hashicorp/vault",
+    "license": "Open Source",
+    "security_score": 0.7,
+    "popularity_score": 0.9,
+    "compatibility_tags": [],
+    "metadata": {},
+    "cost_score": 0.5,
+    "complexity_score": 0.5,
+    "maturity_score": 0.9,
+    "license_risk_score": 0.5
+  },
+  "Sealed Secrets": {
+    "name": "Sealed Secrets",
+    "description": "Sealed Secrets - bitnami-labs/sealed-secrets",
+    "capabilities": [
+      "secrets",
+      "kubernetes",
+      "encryption"
+    ],
+    "github_url": "https://github.com/bitnami-labs/sealed-secrets",
+    "license": "Open Source",
+    "security_score": 0.7,
+    "popularity_score": 0.8,
+    "compatibility_tags": [],
+    "metadata": {},
+    "cost_score": 0.5,
+    "complexity_score": 0.5,
+    "maturity_score": 0.85,
+    "license_risk_score": 0.5
+  },
+  "Go": {
+    "name": "Go",
+    "description": "Go - golang/go",
+    "capabilities": [
+      "language",
+      "runtime",
+      "compiled"
+    ],
+    "github_url": "https://github.com/golang/go",
+    "license": "Open Source",
+    "security_score": 0.7,
+    "popularity_score": 0.3,
+    "compatibility_tags": [],
+    "metadata": {},
+    "cost_score": 0.5,
+    "complexity_score": 0.5,
+    "maturity_score": 0.95,
+    "license_risk_score": 0.5
+  },
+  "Rust": {
+    "name": "Rust",
+    "description": "Rust - rust-lang/rust",
+    "capabilities": [
+      "language",
+      "runtime",
+      "systems"
+    ],
+    "github_url": "https://github.com/rust-lang/rust",
+    "license": "Open Source",
+    "security_score": 0.7,
+    "popularity_score": 0.3,
+    "compatibility_tags": [],
+    "metadata": {},
+    "cost_score": 0.5,
+    "complexity_score": 0.5,
+    "maturity_score": 0.95,
+    "license_risk_score": 0.5
+  },
+  "TypeScript": {
+    "name": "TypeScript",
+    "description": "TypeScript - microsoft/TypeScript",
+    "capabilities": [
+      "language",
+      "javascript",
+      "typed"
+    ],
+    "github_url": "https://github.com/microsoft/TypeScript",
+    "license": "Open Source",
+    "security_score": 0.7,
+    "popularity_score": 0.3,
+    "compatibility_tags": [],
+    "metadata": {},
+    "cost_score": 0.5,
+    "complexity_score": 0.5,
+    "maturity_score": 0.9,
+    "license_risk_score": 0.5
+  },
+  "NATS": {
+    "name": "NATS",
+    "description": "NATS - nats-io/nats-server",
+    "capabilities": [
+      "message_queue",
+      "lightweight",
+      "cloud"
+    ],
+    "github_url": "https://github.com/nats-io/nats-server",
+    "license": "Open Source",
+    "security_score": 0.7,
+    "popularity_score": 0.3,
+    "compatibility_tags": [],
+    "metadata": {},
+    "cost_score": 0.5,
+    "complexity_score": 0.5,
+    "maturity_score": 0.95,
+    "license_risk_score": 0.5
+  },
+  "ZeroMQ": {
+    "name": "ZeroMQ",
+    "description": "ZeroMQ - zeromq/libzmq",
+    "capabilities": [
+      "message_queue",
+      "library",
+      "distributed"
+    ],
+    "github_url": "https://github.com/zeromq/libzmq",
+    "license": "Open Source",
+    "security_score": 0.7,
+    "popularity_score": 0.3,
+    "compatibility_tags": [],
+    "metadata": {},
+    "cost_score": 0.5,
+    "complexity_score": 0.5,
+    "maturity_score": 0.95,
+    "license_risk_score": 0.5
+  },
+  "ActiveMQ": {
+    "name": "ActiveMQ",
+    "description": "ActiveMQ - apache/activemq",
+    "capabilities": [
+      "message_queue",
+      "jms",
+      "broker"
+    ],
+    "github_url": "https://github.com/apache/activemq",
+    "license": "Open Source",
+    "security_score": 0.7,
+    "popularity_score": 0.3,
+    "compatibility_tags": [],
+    "metadata": {},
+    "cost_score": 0.5,
+    "complexity_score": 0.5,
+    "maturity_score": 1.0,
+    "license_risk_score": 0.5
+  },
+  "Pulsar": {
+    "name": "Pulsar",
+    "description": "Pulsar - apache/pulsar",
+    "capabilities": [
+      "message_queue",
+      "streaming",
+      "multi_tenant"
+    ],
+    "github_url": "https://github.com/apache/pulsar",
+    "license": "Open Source",
+    "security_score": 0.7,
+    "popularity_score": 0.3,
+    "compatibility_tags": [],
+    "metadata": {},
+    "cost_score": 0.5,
+    "complexity_score": 0.5,
+    "maturity_score": 0.9,
+    "license_risk_score": 0.5
+  },
+  "MariaDB": {
+    "name": "MariaDB",
+    "description": "MariaDB - MariaDB/server",
+    "capabilities": [
+      "database",
+      "relational",
+      "sql"
+    ],
+    "github_url": "https://github.com/MariaDB/server",
+    "license": "Open Source",
+    "security_score": 0.7,
+    "popularity_score": 0.3,
+    "compatibility_tags": [],
+    "metadata": {},
+    "cost_score": 0.5,
+    "complexity_score": 0.5,
+    "maturity_score": 0.95,
+    "license_risk_score": 0.5
+  },
+  "SQLite": {
+    "name": "SQLite",
+    "description": "SQLite - sqlite/sqlite",
+    "capabilities": [
+      "database",
+      "embedded",
+      "sql"
+    ],
+    "github_url": "https://github.com/sqlite/sqlite",
+    "license": "Open Source",
+    "security_score": 0.7,
+    "popularity_score": 0.3,
+    "compatibility_tags": [],
+    "metadata": {},
+    "cost_score": 0.5,
+    "complexity_score": 0.5,
+    "maturity_score": 1.0,
+    "license_risk_score": 0.5
+  },
+  "CockroachDB": {
+    "name": "CockroachDB",
+    "description": "CockroachDB - cockroachdb/cockroach",
+    "capabilities": [
+      "database",
+      "distributed",
+      "sql"
+    ],
+    "github_url": "https://github.com/cockroachdb/cockroach",
+    "license": "Open Source",
+    "security_score": 0.7,
+    "popularity_score": 0.3,
+    "compatibility_tags": [],
+    "metadata": {},
+    "cost_score": 0.5,
+    "complexity_score": 0.5,
+    "maturity_score": 0.9,
+    "license_risk_score": 0.5
+  },
+  "TiDB": {
+    "name": "TiDB",
+    "description": "TiDB - pingcap/tidb",
+    "capabilities": [
+      "database",
+      "distributed",
+      "sql"
+    ],
+    "github_url": "https://github.com/pingcap/tidb",
+    "license": "Open Source",
+    "security_score": 0.7,
+    "popularity_score": 0.3,
+    "compatibility_tags": [],
+    "metadata": {},
+    "cost_score": 0.5,
+    "complexity_score": 0.5,
+    "maturity_score": 0.9,
+    "license_risk_score": 0.5
+  },
+  "DynamoDB": {
+    "name": "DynamoDB",
+    "description": "DynamoDB - aws/aws-sdk-java",
+    "capabilities": [
+      "database",
+      "nosql",
+      "aws"
+    ],
+    "github_url": "https://github.com/aws/aws-sdk-java",
+    "license": "Open Source",
+    "security_score": 0.7,
+    "popularity_score": 0.3,
+    "compatibility_tags": [],
+    "metadata": {},
+    "cost_score": 0.5,
+    "complexity_score": 0.5,
+    "maturity_score": 0.9,
+    "license_risk_score": 0.5
+  },
+  "Firebase": {
+    "name": "Firebase",
+    "description": "Firebase - firebase/firebase-ios-sdk",
+    "capabilities": [
+      "database",
+      "nosql",
+      "realtime"
+    ],
+    "github_url": "https://github.com/firebase/firebase-ios-sdk",
+    "license": "Open Source",
+    "security_score": 0.7,
+    "popularity_score": 0.3,
+    "compatibility_tags": [],
+    "metadata": {},
+    "cost_score": 0.5,
+    "complexity_score": 0.5,
+    "maturity_score": 0.95,
+    "license_risk_score": 0.5
+  },
+  "Supabase": {
+    "name": "Supabase",
+    "description": "Supabase - supabase/supabase",
+    "capabilities": [
+      "database",
+      "postgres",
+      "backend"
+    ],
+    "github_url": "https://github.com/supabase/supabase",
+    "license": "Open Source",
+    "security_score": 0.7,
+    "popularity_score": 0.3,
+    "compatibility_tags": [],
+    "metadata": {},
+    "cost_score": 0.5,
+    "complexity_score": 0.5,
+    "maturity_score": 0.8,
+    "license_risk_score": 0.5
+  },
+  "PlanetScale": {
+    "name": "PlanetScale",
+    "description": "PlanetScale - planetscale/vitess-fork",
+    "capabilities": [
+      "database",
+      "mysql",
+      "serverless"
+    ],
+    "github_url": "https://github.com/planetscale/vitess-fork",
+    "license": "Open Source",
+    "security_score": 0.7,
+    "popularity_score": 0.3,
+    "compatibility_tags": [],
+    "metadata": {},
+    "cost_score": 0.5,
+    "complexity_score": 0.5,
+    "maturity_score": 0.85,
+    "license_risk_score": 0.5
+  },
+  "Sentry": {
+    "name": "Sentry",
+    "description": "Sentry - getsentry/sentry",
+    "capabilities": [
+      "error_tracking",
+      "monitoring",
+      "debug"
+    ],
+    "github_url": "https://github.com/getsentry/sentry",
+    "license": "Open Source",
+    "security_score": 0.7,
+    "popularity_score": 0.3,
+    "compatibility_tags": [],
+    "metadata": {},
+    "cost_score": 0.5,
+    "complexity_score": 0.5,
+    "maturity_score": 0.95,
+    "license_risk_score": 0.5
+  },
+  "Checkmk": {
+    "name": "Checkmk",
+    "description": "Checkmk - Checkmk/checkmk",
+    "capabilities": [
+      "monitoring",
+      "infrastructure",
+      "alerting"
+    ],
+    "github_url": "https://github.com/Checkmk/checkmk",
+    "license": "Open Source",
+    "security_score": 0.7,
+    "popularity_score": 0.3,
+    "compatibility_tags": [],
+    "metadata": {},
+    "cost_score": 0.5,
+    "complexity_score": 0.5,
+    "maturity_score": 0.95,
+    "license_risk_score": 0.5
+  },
+  "Zabbix": {
+    "name": "Zabbix",
+    "description": "Zabbix - zabbix/zabbix",
+    "capabilities": [
+      "monitoring",
+      "infrastructure",
+      "alerting"
+    ],
+    "github_url": "https://github.com/zabbix/zabbix",
+    "license": "Open Source",
+    "security_score": 0.7,
+    "popularity_score": 0.3,
+    "compatibility_tags": [],
+    "metadata": {},
+    "cost_score": 0.5,
+    "complexity_score": 0.5,
+    "maturity_score": 1.0,
+    "license_risk_score": 0.5
+  },
+  "Nagios": {
+    "name": "Nagios",
+    "description": "Nagios - NagiosEnterprises/nagioscore",
+    "capabilities": [
+      "monitoring",
+      "infrastructure",
+      "legacy"
+    ],
+    "github_url": "https://github.com/NagiosEnterprises/nagioscore",
+    "license": "Open Source",
+    "security_score": 0.7,
+    "popularity_score": 0.3,
+    "compatibility_tags": [],
+    "metadata": {},
+    "cost_score": 0.5,
+    "complexity_score": 0.5,
+    "maturity_score": 1.0,
+    "license_risk_score": 0.5
+  },
+  "OpenTelemetry": {
+    "name": "OpenTelemetry",
+    "description": "OpenTelemetry - open-telemetry/opentelemetry-collector",
+    "capabilities": [
+      "observability",
+      "tracing",
+      "metrics"
+    ],
+    "github_url": "https://github.com/open-telemetry/opentelemetry-collector",
+    "license": "Open Source",
+    "security_score": 0.7,
+    "popularity_score": 0.3,
+    "compatibility_tags": [],
+    "metadata": {},
+    "cost_score": 0.5,
+    "complexity_score": 0.5,
+    "maturity_score": 0.8,
+    "license_risk_score": 0.5
+  },
+  "Eureka": {
+    "name": "Eureka",
+    "description": "Eureka - Netflix/eureka",
+    "capabilities": [
+      "service_discovery",
+      "netflix",
+      "java"
+    ],
+    "github_url": "https://github.com/Netflix/eureka",
+    "license": "Open Source",
+    "security_score": 0.7,
+    "popularity_score": 0.3,
+    "compatibility_tags": [],
+    "metadata": {},
+    "cost_score": 0.5,
+    "complexity_score": 0.5,
+    "maturity_score": 0.9,
+    "license_risk_score": 0.5
+  },
+  "ZooKeeper": {
+    "name": "ZooKeeper",
+    "description": "ZooKeeper - apache/zookeeper",
+    "capabilities": [
+      "coordination",
+      "distributed",
+      "kv_store"
+    ],
+    "github_url": "https://github.com/apache/zookeeper",
+    "license": "Open Source",
+    "security_score": 0.7,
+    "popularity_score": 0.3,
+    "compatibility_tags": [],
+    "metadata": {},
+    "cost_score": 0.5,
+    "complexity_score": 0.5,
+    "maturity_score": 0.95,
+    "license_risk_score": 0.5
+  },
+  "etcd": {
+    "name": "etcd",
+    "description": "etcd - etcd-io/etcd",
+    "capabilities": [
+      "kv_store",
+      "distributed",
+      "raft"
+    ],
+    "github_url": "https://github.com/etcd-io/etcd",
+    "license": "Open Source",
+    "security_score": 0.7,
+    "popularity_score": 0.3,
+    "compatibility_tags": [],
+    "metadata": {},
+    "cost_score": 0.5,
+    "complexity_score": 0.5,
+    "maturity_score": 0.9,
+    "license_risk_score": 0.5
+  },
+  "Swagger": {
+    "name": "Swagger",
+    "description": "Swagger - swagger-api/swagger-ui",
+    "capabilities": [
+      "api_docs",
+      "openapi",
+      "documentation"
+    ],
+    "github_url": "https://github.com/swagger-api/swagger-ui",
+    "license": "Open Source",
+    "security_score": 0.7,
+    "popularity_score": 0.3,
+    "compatibility_tags": [],
+    "metadata": {},
+    "cost_score": 0.5,
+    "complexity_score": 0.5,
+    "maturity_score": 0.95,
+    "license_risk_score": 0.5
+  },
+  "Redoc": {
+    "name": "Redoc",
+    "description": "Redoc - Redocly/redoc",
+    "capabilities": [
+      "api_docs",
+      "openapi",
+      "ui"
+    ],
+    "github_url": "https://github.com/Redocly/redoc",
+    "license": "Open Source",
+    "security_score": 0.7,
+    "popularity_score": 0.3,
+    "compatibility_tags": [],
+    "metadata": {},
+    "cost_score": 0.5,
+    "complexity_score": 0.5,
+    "maturity_score": 0.9,
+    "license_risk_score": 0.5
+  },
+  "Postman": {
+    "name": "Postman",
+    "description": "Postman - postmanlabs/postman-runtime",
+    "capabilities": [
+      "api_client",
+      "testing",
+      "collection"
+    ],
+    "github_url": "https://github.com/postmanlabs/postman-runtime",
+    "license": "Open Source",
+    "security_score": 0.7,
+    "popularity_score": 0.3,
+    "compatibility_tags": [],
+    "metadata": {},
+    "cost_score": 0.5,
+    "complexity_score": 0.5,
+    "maturity_score": 0.9,
+    "license_risk_score": 0.5
+  },
+  "Insomnia": {
+    "name": "Insomnia",
+    "description": "Insomnia - Kong/insomnia",
+    "capabilities": [
+      "api_client",
+      "testing",
+      "graphql"
+    ],
+    "github_url": "https://github.com/Kong/insomnia",
+    "license": "Open Source",
+    "security_score": 0.7,
+    "popularity_score": 0.3,
+    "compatibility_tags": [],
+    "metadata": {},
+    "cost_score": 0.5,
+    "complexity_score": 0.5,
+    "maturity_score": 0.9,
+    "license_risk_score": 0.5
+  },
+  "Selenium": {
+    "name": "Selenium",
+    "description": "Selenium - SeleniumHQ/selenium",
+    "capabilities": [
+      "testing",
+      "browser",
+      "automation"
+    ],
+    "github_url": "https://github.com/SeleniumHQ/selenium",
+    "license": "Open Source",
+    "security_score": 0.7,
+    "popularity_score": 0.3,
+    "compatibility_tags": [],
+    "metadata": {},
+    "cost_score": 0.5,
+    "complexity_score": 0.5,
+    "maturity_score": 1.0,
+    "license_risk_score": 0.5
+  },
+  "Cypress": {
+    "name": "Cypress",
+    "description": "Cypress - cypress-io/cypress",
+    "capabilities": [
+      "testing",
+      "e2e",
+      "frontend"
+    ],
+    "github_url": "https://github.com/cypress-io/cypress",
+    "license": "Open Source",
+    "security_score": 0.7,
+    "popularity_score": 0.3,
+    "compatibility_tags": [],
+    "metadata": {},
+    "cost_score": 0.5,
+    "complexity_score": 0.5,
+    "maturity_score": 0.9,
+    "license_risk_score": 0.5
+  },
+  "Playwright": {
+    "name": "Playwright",
+    "description": "Playwright - microsoft/playwright",
+    "capabilities": [
+      "testing",
+      "e2e",
+      "cross_browser"
+    ],
+    "github_url": "https://github.com/microsoft/playwright",
+    "license": "Open Source",
+    "security_score": 0.7,
+    "popularity_score": 0.3,
+    "compatibility_tags": [],
+    "metadata": {},
+    "cost_score": 0.5,
+    "complexity_score": 0.5,
+    "maturity_score": 0.8,
+    "license_risk_score": 0.5
+  },
+  "Jest": {
+    "name": "Jest",
+    "description": "Jest - jestjs/jest",
+    "capabilities": [
+      "testing",
+      "javascript",
+      "unit"
+    ],
+    "github_url": "https://github.com/jestjs/jest",
+    "license": "Open Source",
+    "security_score": 0.7,
+    "popularity_score": 0.3,
+    "compatibility_tags": [],
+    "metadata": {},
+    "cost_score": 0.5,
+    "complexity_score": 0.5,
+    "maturity_score": 0.9,
+    "license_risk_score": 0.5
+  },
+  "PyTest": {
+    "name": "PyTest",
+    "description": "PyTest - pytest-dev/pytest",
+    "capabilities": [
+      "testing",
+      "python",
+      "unit"
+    ],
+    "github_url": "https://github.com/pytest-dev/pytest",
+    "license": "Open Source",
+    "security_score": 0.7,
+    "popularity_score": 0.3,
+    "compatibility_tags": [],
+    "metadata": {},
+    "cost_score": 0.5,
+    "complexity_score": 0.5,
+    "maturity_score": 1.0,
+    "license_risk_score": 0.5
+  },
+  "JUnit": {
+    "name": "JUnit",
+    "description": "JUnit - junit-team/junit5",
+    "capabilities": [
+      "testing",
+      "java",
+      "unit"
+    ],
+    "github_url": "https://github.com/junit-team/junit5",
+    "license": "Open Source",
+    "security_score": 0.7,
+    "popularity_score": 0.3,
+    "compatibility_tags": [],
+    "metadata": {},
+    "cost_score": 0.5,
+    "complexity_score": 0.5,
+    "maturity_score": 1.0,
+    "license_risk_score": 0.5
+  },
+  "TestNG": {
+    "name": "TestNG",
+    "description": "TestNG - testng-team/testng",
+    "capabilities": [
+      "testing",
+      "java",
+      "integration"
+    ],
+    "github_url": "https://github.com/testng-team/testng",
+    "license": "Open Source",
+    "security_score": 0.7,
+    "popularity_score": 0.3,
+    "compatibility_tags": [],
+    "metadata": {},
+    "cost_score": 0.5,
+    "complexity_score": 0.5,
+    "maturity_score": 1.0,
+    "license_risk_score": 0.5
+  },
+  "Mocha": {
+    "name": "Mocha",
+    "description": "Mocha - mochajs/mocha",
+    "capabilities": [
+      "testing",
+      "javascript",
+      "node"
+    ],
+    "github_url": "https://github.com/mochajs/mocha",
+    "license": "Open Source",
+    "security_score": 0.7,
+    "popularity_score": 0.3,
+    "compatibility_tags": [],
+    "metadata": {},
+    "cost_score": 0.5,
+    "complexity_score": 0.5,
+    "maturity_score": 0.95,
+    "license_risk_score": 0.5
+  },
+  "Maven": {
+    "name": "Maven",
+    "description": "Maven - apache/maven",
+    "capabilities": [
+      "build",
+      "java",
+      "dependency"
+    ],
+    "github_url": "https://github.com/apache/maven",
+    "license": "Open Source",
+    "security_score": 0.7,
+    "popularity_score": 0.3,
+    "compatibility_tags": [],
+    "metadata": {},
+    "cost_score": 0.5,
+    "complexity_score": 0.5,
+    "maturity_score": 1.0,
+    "license_risk_score": 0.5
+  },
+  "Gradle": {
+    "name": "Gradle",
+    "description": "Gradle - gradle/gradle",
+    "capabilities": [
+      "build",
+      "java",
+      "kotlin"
+    ],
+    "github_url": "https://github.com/gradle/gradle",
+    "license": "Open Source",
+    "security_score": 0.7,
+    "popularity_score": 0.3,
+    "compatibility_tags": [],
+    "metadata": {},
+    "cost_score": 0.5,
+    "complexity_score": 0.5,
+    "maturity_score": 0.95,
+    "license_risk_score": 0.5
+  },
+  "Webpack": {
+    "name": "Webpack",
+    "description": "Webpack - webpack/webpack",
+    "capabilities": [
+      "bundler",
+      "javascript",
+      "module"
+    ],
+    "github_url": "https://github.com/webpack/webpack",
+    "license": "Open Source",
+    "security_score": 0.7,
+    "popularity_score": 0.3,
+    "compatibility_tags": [],
+    "metadata": {},
+    "cost_score": 0.5,
+    "complexity_score": 0.5,
+    "maturity_score": 0.9,
+    "license_risk_score": 0.5
+  },
+  "Vite": {
+    "name": "Vite",
+    "description": "Vite - vitejs/vite",
+    "capabilities": [
+      "bundler",
+      "javascript",
+      "dev_server"
+    ],
+    "github_url": "https://github.com/vitejs/vite",
+    "license": "Open Source",
+    "security_score": 0.7,
+    "popularity_score": 0.3,
+    "compatibility_tags": [],
+    "metadata": {},
+    "cost_score": 0.5,
+    "complexity_score": 0.5,
+    "maturity_score": 0.8,
+    "license_risk_score": 0.5
+  },
+  "esbuild": {
+    "name": "esbuild",
+    "description": "esbuild - evanw/esbuild",
+    "capabilities": [
+      "bundler",
+      "javascript",
+      "performance"
+    ],
+    "github_url": "https://github.com/evanw/esbuild",
+    "license": "Open Source",
+    "security_score": 0.7,
+    "popularity_score": 0.3,
+    "compatibility_tags": [],
+    "metadata": {},
+    "cost_score": 0.5,
+    "complexity_score": 0.5,
+    "maturity_score": 0.8,
+    "license_risk_score": 0.5
+  },
+  "PHP": {
+    "name": "PHP",
+    "description": "PHP - php/php-src",
+    "capabilities": [
+      "language",
+      "web",
+      "scripting"
+    ],
+    "github_url": "https://github.com/php/php-src",
+    "license": "Open Source",
+    "security_score": 0.7,
+    "popularity_score": 0.3,
+    "compatibility_tags": [],
+    "metadata": {},
+    "cost_score": 0.5,
+    "complexity_score": 0.5,
+    "maturity_score": 1.0,
+    "license_risk_score": 0.5
+  },
+  "Ruby": {
+    "name": "Ruby",
+    "description": "Ruby - ruby/ruby",
+    "capabilities": [
+      "language",
+      "web",
+      "scripting"
+    ],
+    "github_url": "https://github.com/ruby/ruby",
+    "license": "Open Source",
+    "security_score": 0.7,
+    "popularity_score": 0.3,
+    "compatibility_tags": [],
+    "metadata": {},
+    "cost_score": 0.5,
+    "complexity_score": 0.5,
+    "maturity_score": 1.0,
+    "license_risk_score": 0.5
+  },
+  "C#": {
+    "name": "C#",
+    "description": "C# - dotnet/roslyn",
+    "capabilities": [
+      "language",
+      "dotnet",
+      "compiled"
+    ],
+    "github_url": "https://github.com/dotnet/roslyn",
+    "license": "Open Source",
+    "security_score": 0.7,
+    "popularity_score": 0.3,
+    "compatibility_tags": [],
+    "metadata": {},
+    "cost_score": 0.5,
+    "complexity_score": 0.5,
+    "maturity_score": 1.0,
+    "license_risk_score": 0.5
+  },
+  "Swift": {
+    "name": "Swift",
+    "description": "Swift - apple/swift",
+    "capabilities": [
+      "language",
+      "ios",
+      "compiled"
+    ],
+    "github_url": "https://github.com/apple/swift",
+    "license": "Open Source",
+    "security_score": 0.7,
+    "popularity_score": 0.3,
+    "compatibility_tags": [],
+    "metadata": {},
+    "cost_score": 0.5,
+    "complexity_score": 0.5,
+    "maturity_score": 0.9,
+    "license_risk_score": 0.5
+  },
+  "Kotlin": {
+    "name": "Kotlin",
+    "description": "Kotlin - JetBrains/kotlin",
+    "capabilities": [
+      "language",
+      "jvm",
+      "android"
+    ],
+    "github_url": "https://github.com/JetBrains/kotlin",
+    "license": "Open Source",
+    "security_score": 0.7,
+    "popularity_score": 0.3,
+    "compatibility_tags": [],
+    "metadata": {},
+    "cost_score": 0.5,
+    "complexity_score": 0.5,
+    "maturity_score": 0.95,
+    "license_risk_score": 0.5
+  },
+  "Scala": {
+    "name": "Scala",
+    "description": "Scala - scala/scala",
+    "capabilities": [
+      "language",
+      "jvm",
+      "functional"
+    ],
+    "github_url": "https://github.com/scala/scala",
+    "license": "Open Source",
+    "security_score": 0.7,
+    "popularity_score": 0.3,
+    "compatibility_tags": [],
+    "metadata": {},
+    "cost_score": 0.5,
+    "complexity_score": 0.5,
+    "maturity_score": 1.0,
+    "license_risk_score": 0.5
+  },
+  "Laravel": {
+    "name": "Laravel",
+    "description": "Laravel - laravel/laravel",
+    "capabilities": [
+      "web_framework",
+      "php",
+      "fullstack"
+    ],
+    "github_url": "https://github.com/laravel/laravel",
+    "license": "Open Source",
+    "security_score": 0.7,
+    "popularity_score": 0.3,
+    "compatibility_tags": [],
+    "metadata": {},
+    "cost_score": 0.5,
+    "complexity_score": 0.5,
+    "maturity_score": 0.95,
+    "license_risk_score": 0.5
+  },
+  "Symfony": {
+    "name": "Symfony",
+    "description": "Symfony - symfony/symfony",
+    "capabilities": [
+      "web_framework",
+      "php",
+      "enterprise"
+    ],
+    "github_url": "https://github.com/symfony/symfony",
+    "license": "Open Source",
+    "security_score": 0.7,
+    "popularity_score": 0.3,
+    "compatibility_tags": [],
+    "metadata": {},
+    "cost_score": 0.5,
+    "complexity_score": 0.5,
+    "maturity_score": 1.0,
+    "license_risk_score": 0.5
+  },
+  "ASP.NET Core": {
+    "name": "ASP.NET Core",
+    "description": "ASP.NET Core - dotnet/aspnetcore",
+    "capabilities": [
+      "web_framework",
+      "dotnet",
+      "cross_platform"
+    ],
+    "github_url": "https://github.com/dotnet/aspnetcore",
+    "license": "Open Source",
+    "security_score": 0.7,
+    "popularity_score": 0.3,
+    "compatibility_tags": [],
+    "metadata": {},
+    "cost_score": 0.5,
+    "complexity_score": 0.5,
+    "maturity_score": 0.9,
+    "license_risk_score": 0.5
+  },
+  "Phoenix": {
+    "name": "Phoenix",
+    "description": "Phoenix - phoenixframework/phoenix",
+    "capabilities": [
+      "web_framework",
+      "elixir",
+      "realtime"
+    ],
+    "github_url": "https://github.com/phoenixframework/phoenix",
+    "license": "Open Source",
+    "security_score": 0.7,
+    "popularity_score": 0.3,
+    "compatibility_tags": [],
+    "metadata": {},
+    "cost_score": 0.5,
+    "complexity_score": 0.5,
+    "maturity_score": 0.9,
+    "license_risk_score": 0.5
+  },
+  "Play Framework": {
+    "name": "Play Framework",
+    "description": "Play Framework - playframework/playframework",
+    "capabilities": [
+      "web_framework",
+      "scala",
+      "reactive"
+    ],
+    "github_url": "https://github.com/playframework/playframework",
+    "license": "Open Source",
+    "security_score": 0.7,
+    "popularity_score": 0.3,
+    "compatibility_tags": [],
+    "metadata": {},
+    "cost_score": 0.5,
+    "complexity_score": 0.5,
+    "maturity_score": 0.95,
+    "license_risk_score": 0.5
+  },
+  "Puppet": {
+    "name": "Puppet",
+    "description": "Puppet - puppetlabs/puppet",
+    "capabilities": [
+      "configuration",
+      "management",
+      "declarative"
+    ],
+    "github_url": "https://github.com/puppetlabs/puppet",
+    "license": "Open Source",
+    "security_score": 0.7,
+    "popularity_score": 0.3,
+    "compatibility_tags": [],
+    "metadata": {},
+    "cost_score": 0.5,
+    "complexity_score": 0.5,
+    "maturity_score": 1.0,
+    "license_risk_score": 0.5
+  },
+  "Chef": {
+    "name": "Chef",
+    "description": "Chef - chef/chef",
+    "capabilities": [
+      "configuration",
+      "management",
+      "ruby"
+    ],
+    "github_url": "https://github.com/chef/chef",
+    "license": "Open Source",
+    "security_score": 0.7,
+    "popularity_score": 0.3,
+    "compatibility_tags": [],
+    "metadata": {},
+    "cost_score": 0.5,
+    "complexity_score": 0.5,
+    "maturity_score": 0.95,
+    "license_risk_score": 0.5
+  },
+  "SaltStack": {
+    "name": "SaltStack",
+    "description": "SaltStack - saltstack/salt",
+    "capabilities": [
+      "configuration",
+      "automation",
+      "remote_execution"
+    ],
+    "github_url": "https://github.com/saltstack/salt",
+    "license": "Open Source",
+    "security_score": 0.7,
+    "popularity_score": 0.3,
+    "compatibility_tags": [],
+    "metadata": {},
+    "cost_score": 0.5,
+    "complexity_score": 0.5,
+    "maturity_score": 0.95,
+    "license_risk_score": 0.5
+  },
+  "CloudFormation": {
+    "name": "CloudFormation",
+    "description": "CloudFormation - aws/aws-cdk",
+    "capabilities": [
+      "iac",
+      "aws",
+      "infrastructure"
+    ],
+    "github_url": "https://github.com/aws/aws-cdk",
+    "license": "Open Source",
+    "security_score": 0.7,
+    "popularity_score": 0.3,
+    "compatibility_tags": [],
+    "metadata": {},
+    "cost_score": 0.5,
+    "complexity_score": 0.5,
+    "maturity_score": 0.95,
+    "license_risk_score": 0.5
+  },
+  "CDK": {
+    "name": "CDK",
+    "description": "CDK - aws/aws-cdk",
+    "capabilities": [
+      "iac",
+      "aws",
+      "programmable"
+    ],
+    "github_url": "https://github.com/aws/aws-cdk",
+    "license": "Open Source",
+    "security_score": 0.7,
+    "popularity_score": 0.3,
+    "compatibility_tags": [],
+    "metadata": {},
+    "cost_score": 0.5,
+    "complexity_score": 0.5,
+    "maturity_score": 0.85,
+    "license_risk_score": 0.5
+  },
+  "OpenSSL": {
+    "name": "OpenSSL",
+    "description": "OpenSSL - openssl/openssl",
+    "capabilities": [
+      "crypto",
+      "ssl",
+      "certificates"
+    ],
+    "github_url": "https://github.com/openssl/openssl",
+    "license": "Open Source",
+    "security_score": 0.7,
+    "popularity_score": 0.3,
+    "compatibility_tags": [],
+    "metadata": {},
+    "cost_score": 0.5,
+    "complexity_score": 0.5,
+    "maturity_score": 1.0,
+    "license_risk_score": 0.5
+  },
+  "Let's Encrypt": {
+    "name": "Let's Encrypt",
+    "description": "Let's Encrypt - certbot/certbot",
+    "capabilities": [
+      "certificates",
+      "ssl",
+      "automation"
+    ],
+    "github_url": "https://github.com/certbot/certbot",
+    "license": "Open Source",
+    "security_score": 0.7,
+    "popularity_score": 0.3,
+    "compatibility_tags": [],
+    "metadata": {},
+    "cost_score": 0.5,
+    "complexity_score": 0.5,
+    "maturity_score": 0.9,
+    "license_risk_score": 0.5
+  },
+  "Certbot": {
+    "name": "Certbot",
+    "description": "Certbot - certbot/certbot",
+    "capabilities": [
+      "certificates",
+      "letsencrypt",
+      "automation"
+    ],
+    "github_url": "https://github.com/certbot/certbot",
+    "license": "Open Source",
+    "security_score": 0.7,
+    "popularity_score": 0.3,
+    "compatibility_tags": [],
+    "metadata": {},
+    "cost_score": 0.5,
+    "complexity_score": 0.5,
+    "maturity_score": 0.9,
+    "license_risk_score": 0.5
+  },
+  "Trivy": {
+    "name": "Trivy",
+    "description": "Trivy - aquasecurity/trivy",
+    "capabilities": [
+      "security",
+      "scanning",
+      "vulnerability"
+    ],
+    "github_url": "https://github.com/aquasecurity/trivy",
+    "license": "Open Source",
+    "security_score": 0.7,
+    "popularity_score": 0.3,
+    "compatibility_tags": [],
+    "metadata": {},
+    "cost_score": 0.5,
+    "complexity_score": 0.5,
+    "maturity_score": 0.8,
+    "license_risk_score": 0.5
+  },
+  "SonarQube": {
+    "name": "SonarQube",
+    "description": "SonarQube - SonarSource/sonarqube",
+    "capabilities": [
+      "code_quality",
+      "static_analysis",
+      "security"
+    ],
+    "github_url": "https://github.com/SonarSource/sonarqube",
+    "license": "Open Source",
+    "security_score": 0.7,
+    "popularity_score": 0.3,
     "compatibility_tags": [],
     "metadata": {},
     "cost_score": 0.5,
