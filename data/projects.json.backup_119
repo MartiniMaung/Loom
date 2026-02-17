@@ -1,0 +1,443 @@
+{
+  "Python": {
+    "name": "Python",
+    "description": "All Algorithms implemented in Python",
+    "capabilities": [
+      "runtime",
+      "language"
+    ],
+    "github_url": null,
+    "license": "MIT License",
+    "security_score": 0.8,
+    "popularity_score": 0.95,
+    "compatibility_tags": [],
+    "metadata": {},
+    "cost_score": 0.5,
+    "complexity_score": 0.5,
+    "maturity_score": 1.0,
+    "license_risk_score": 0.5
+  },
+  "Java": {
+    "name": "Java",
+    "description": "All Algorithms implemented in Java",
+    "capabilities": [
+      "runtime",
+      "language"
+    ],
+    "github_url": null,
+    "license": "MIT License",
+    "security_score": 0.8,
+    "popularity_score": 0.9,
+    "compatibility_tags": [],
+    "metadata": {},
+    "cost_score": 0.5,
+    "complexity_score": 0.5,
+    "maturity_score": 1.0,
+    "license_risk_score": 0.5
+  },
+  "Django": {
+    "name": "Django",
+    "description": "Django - Popular OSS project",
+    "capabilities": [
+      "web_framework",
+      "authentication",
+      "database"
+    ],
+    "github_url": null,
+    "license": "Open Source",
+    "security_score": 0.7,
+    "popularity_score": 0.95,
+    "compatibility_tags": [],
+    "metadata": {},
+    "cost_score": 0.5,
+    "complexity_score": 0.5,
+    "maturity_score": 1.0,
+    "license_risk_score": 0.5
+  },
+  "Flask": {
+    "name": "Flask",
+    "description": "Flask - Popular OSS project",
+    "capabilities": [
+      "web_framework"
+    ],
+    "github_url": null,
+    "license": "Open Source",
+    "security_score": 0.7,
+    "popularity_score": 0.95,
+    "compatibility_tags": [],
+    "metadata": {},
+    "cost_score": 0.5,
+    "complexity_score": 0.5,
+    "maturity_score": 0.95,
+    "license_risk_score": 0.5
+  },
+  "Express": {
+    "name": "Express",
+    "description": "Express - Popular OSS project",
+    "capabilities": [
+      "web_framework",
+      "api_gateway"
+    ],
+    "github_url": null,
+    "license": "Open Source",
+    "security_score": 0.7,
+    "popularity_score": 0.95,
+    "compatibility_tags": [],
+    "metadata": {},
+    "cost_score": 0.5,
+    "complexity_score": 0.5,
+    "maturity_score": 0.95,
+    "license_risk_score": 0.5
+  },
+  "Spring Boot": {
+    "name": "Spring Boot",
+    "description": "Spring Boot - Popular OSS project",
+    "capabilities": [
+      "web_framework",
+      "authentication",
+      "database"
+    ],
+    "github_url": null,
+    "license": "Open Source",
+    "security_score": 0.7,
+    "popularity_score": 0.95,
+    "compatibility_tags": [],
+    "metadata": {},
+    "cost_score": 0.5,
+    "complexity_score": 0.5,
+    "maturity_score": 0.9,
+    "license_risk_score": 0.5
+  },
+  "Rails": {
+    "name": "Rails",
+    "description": "Rails - Popular OSS project",
+    "capabilities": [
+      "web_framework",
+      "database",
+      "authentication"
+    ],
+    "github_url": null,
+    "license": "Open Source",
+    "security_score": 0.7,
+    "popularity_score": 0.95,
+    "compatibility_tags": [],
+    "metadata": {},
+    "cost_score": 0.5,
+    "complexity_score": 0.5,
+    "maturity_score": 1.0,
+    "license_risk_score": 0.5
+  },
+  "PostgreSQL": {
+    "name": "PostgreSQL",
+    "description": "PostgreSQL - Popular OSS project",
+    "capabilities": [
+      "database",
+      "storage"
+    ],
+    "github_url": null,
+    "license": "Open Source",
+    "security_score": 0.7,
+    "popularity_score": 0.85,
+    "compatibility_tags": [],
+    "metadata": {},
+    "cost_score": 0.5,
+    "complexity_score": 0.5,
+    "maturity_score": 1.0,
+    "license_risk_score": 0.5
+  },
+  "MySQL": {
+    "name": "MySQL",
+    "description": "MySQL - Popular OSS project",
+    "capabilities": [
+      "database",
+      "storage"
+    ],
+    "github_url": null,
+    "license": "Open Source",
+    "security_score": 0.7,
+    "popularity_score": 0.85,
+    "compatibility_tags": [],
+    "metadata": {},
+    "cost_score": 0.5,
+    "complexity_score": 0.5,
+    "maturity_score": 1.0,
+    "license_risk_score": 0.5
+  },
+  "MongoDB": {
+    "name": "MongoDB",
+    "description": "MongoDB - Popular OSS project",
+    "capabilities": [
+      "database",
+      "storage",
+      "vector_db"
+    ],
+    "github_url": null,
+    "license": "Open Source",
+    "security_score": 0.7,
+    "popularity_score": 0.9,
+    "compatibility_tags": [],
+    "metadata": {},
+    "cost_score": 0.5,
+    "complexity_score": 0.5,
+    "maturity_score": 0.95,
+    "license_risk_score": 0.5
+  },
+  "Redis": {
+    "name": "Redis",
+    "description": "Redis - Popular OSS project",
+    "capabilities": [
+      "cache",
+      "database",
+      "message_queue"
+    ],
+    "github_url": null,
+    "license": "Open Source",
+    "security_score": 0.7,
+    "popularity_score": 0.95,
+    "compatibility_tags": [],
+    "metadata": {},
+    "cost_score": 0.5,
+    "complexity_score": 0.5,
+    "maturity_score": 0.95,
+    "license_risk_score": 0.5
+  },
+  "Elasticsearch": {
+    "name": "Elasticsearch",
+    "description": "Elasticsearch - Popular OSS project",
+    "capabilities": [
+      "search",
+      "database",
+      "analytics"
+    ],
+    "github_url": null,
+    "license": "Open Source",
+    "security_score": 0.7,
+    "popularity_score": 0.95,
+    "compatibility_tags": [],
+    "metadata": {},
+    "cost_score": 0.5,
+    "complexity_score": 0.5,
+    "maturity_score": 0.95,
+    "license_risk_score": 0.5
+  },
+  "RabbitMQ": {
+    "name": "RabbitMQ",
+    "description": "RabbitMQ - Popular OSS project",
+    "capabilities": [
+      "message_queue",
+      "message_broker"
+    ],
+    "github_url": null,
+    "license": "Open Source",
+    "security_score": 0.7,
+    "popularity_score": 0.85,
+    "compatibility_tags": [],
+    "metadata": {},
+    "cost_score": 0.5,
+    "complexity_score": 0.5,
+    "maturity_score": 0.95,
+    "license_risk_score": 0.5
+  },
+  "Apache Kafka": {
+    "name": "Apache Kafka",
+    "description": "Apache Kafka - Popular OSS project",
+    "capabilities": [
+      "message_queue",
+      "streaming",
+      "event_bus"
+    ],
+    "github_url": null,
+    "license": "Open Source",
+    "security_score": 0.7,
+    "popularity_score": 0.9,
+    "compatibility_tags": [],
+    "metadata": {},
+    "cost_score": 0.5,
+    "complexity_score": 0.5,
+    "maturity_score": 0.95,
+    "license_risk_score": 0.5
+  },
+  "Keycloak": {
+    "name": "Keycloak",
+    "description": "Keycloak - Popular OSS project",
+    "capabilities": [
+      "authentication",
+      "authorization",
+      "identity"
+    ],
+    "github_url": null,
+    "license": "Open Source",
+    "security_score": 0.7,
+    "popularity_score": 0.9,
+    "compatibility_tags": [],
+    "metadata": {},
+    "cost_score": 0.5,
+    "complexity_score": 0.5,
+    "maturity_score": 0.9,
+    "license_risk_score": 0.5
+  },
+  "Ory Kratos": {
+    "name": "Ory Kratos",
+    "description": "Ory Kratos - Popular OSS project",
+    "capabilities": [
+      "authentication",
+      "identity"
+    ],
+    "github_url": null,
+    "license": "Open Source",
+    "security_score": 0.7,
+    "popularity_score": 0.85,
+    "compatibility_tags": [],
+    "metadata": {},
+    "cost_score": 0.5,
+    "complexity_score": 0.5,
+    "maturity_score": 0.8,
+    "license_risk_score": 0.5
+  },
+  "Prometheus": {
+    "name": "Prometheus",
+    "description": "Prometheus - Popular OSS project",
+    "capabilities": [
+      "monitoring",
+      "metrics"
+    ],
+    "github_url": null,
+    "license": "Open Source",
+    "security_score": 0.7,
+    "popularity_score": 0.95,
+    "compatibility_tags": [],
+    "metadata": {},
+    "cost_score": 0.5,
+    "complexity_score": 0.5,
+    "maturity_score": 0.9,
+    "license_risk_score": 0.5
+  },
+  "Grafana": {
+    "name": "Grafana",
+    "description": "Grafana - Popular OSS project",
+    "capabilities": [
+      "monitoring",
+      "visualization"
+    ],
+    "github_url": null,
+    "license": "Open Source",
+    "security_score": 0.7,
+    "popularity_score": 0.95,
+    "compatibility_tags": [],
+    "metadata": {},
+    "cost_score": 0.5,
+    "complexity_score": 0.5,
+    "maturity_score": 0.9,
+    "license_risk_score": 0.5
+  },
+  "Jaeger": {
+    "name": "Jaeger",
+    "description": "Jaeger - Popular OSS project",
+    "capabilities": [
+      "tracing",
+      "monitoring"
+    ],
+    "github_url": null,
+    "license": "Open Source",
+    "security_score": 0.7,
+    "popularity_score": 0.9,
+    "compatibility_tags": [],
+    "metadata": {},
+    "cost_score": 0.5,
+    "complexity_score": 0.5,
+    "maturity_score": 0.9,
+    "license_risk_score": 0.5
+  },
+  "Terraform": {
+    "name": "Terraform",
+    "description": "Terraform - Popular OSS project",
+    "capabilities": [
+      "infrastructure",
+      "iac"
+    ],
+    "github_url": null,
+    "license": "Open Source",
+    "security_score": 0.7,
+    "popularity_score": 0.9,
+    "compatibility_tags": [],
+    "metadata": {},
+    "cost_score": 0.5,
+    "complexity_score": 0.5,
+    "maturity_score": 0.9,
+    "license_risk_score": 0.5
+  },
+  "Ansible": {
+    "name": "Ansible",
+    "description": "Ansible - Popular OSS project",
+    "capabilities": [
+      "infrastructure",
+      "automation",
+      "iac"
+    ],
+    "github_url": null,
+    "license": "Open Source",
+    "security_score": 0.7,
+    "popularity_score": 0.95,
+    "compatibility_tags": [],
+    "metadata": {},
+    "cost_score": 0.5,
+    "complexity_score": 0.5,
+    "maturity_score": 0.9,
+    "license_risk_score": 0.5
+  },
+  "Node.js": {
+    "name": "Node.js",
+    "description": "Node.js - Popular OSS project",
+    "capabilities": [
+      "runtime",
+      "javascript"
+    ],
+    "github_url": null,
+    "license": "Open Source",
+    "security_score": 0.7,
+    "popularity_score": 1.0,
+    "compatibility_tags": [],
+    "metadata": {},
+    "cost_score": 0.5,
+    "complexity_score": 0.5,
+    "maturity_score": 0.95,
+    "license_risk_score": 0.5
+  },
+  "Deno": {
+    "name": "Deno",
+    "description": "Deno - Popular OSS project",
+    "capabilities": [
+      "runtime",
+      "javascript",
+      "typescript"
+    ],
+    "github_url": null,
+    "license": "Open Source",
+    "security_score": 0.7,
+    "popularity_score": 1.0,
+    "compatibility_tags": [],
+    "metadata": {},
+    "cost_score": 0.5,
+    "complexity_score": 0.5,
+    "maturity_score": 0.85,
+    "license_risk_score": 0.5
+  },
+  "Logstash": {
+    "name": "Logstash",
+    "description": "Logstash - Popular OSS project",
+    "capabilities": [
+      "logging",
+      "etl"
+    ],
+    "github_url": null,
+    "license": "Open Source",
+    "security_score": 0.7,
+    "popularity_score": 0.85,
+    "compatibility_tags": [],
+    "metadata": {},
+    "cost_score": 0.5,
+    "complexity_score": 0.5,
+    "maturity_score": 0.95,
+    "license_risk_score": 0.5
+  }
+}
