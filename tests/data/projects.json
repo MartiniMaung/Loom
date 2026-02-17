@@ -1,0 +1,104 @@
+{
+  "FastAPI": {
+    "name": "FastAPI",
+    "description": "Modern web framework",
+    "capabilities": [
+      "web_framework"
+    ],
+    "github_url": null,
+    "license": "MIT",
+    "security_score": 0.85,
+    "popularity_score": 0.5,
+    "compatibility_tags": [],
+    "metadata": {},
+    "cost_score": 0.4,
+    "complexity_score": 0.3,
+    "maturity_score": 0.9,
+    "license_risk_score": 0.2
+  },
+  "Django": {
+    "name": "Django",
+    "description": "Full-stack framework",
+    "capabilities": [
+      "web_framework"
+    ],
+    "github_url": null,
+    "license": "BSD",
+    "security_score": 0.88,
+    "popularity_score": 0.5,
+    "compatibility_tags": [],
+    "metadata": {},
+    "cost_score": 0.5,
+    "complexity_score": 0.7,
+    "maturity_score": 0.95,
+    "license_risk_score": 0.2
+  },
+  "PostgreSQL": {
+    "name": "PostgreSQL",
+    "description": "Relational database",
+    "capabilities": [
+      "database"
+    ],
+    "github_url": null,
+    "license": "PostgreSQL",
+    "security_score": 0.82,
+    "popularity_score": 0.5,
+    "compatibility_tags": [],
+    "metadata": {},
+    "cost_score": 0.3,
+    "complexity_score": 0.6,
+    "maturity_score": 0.95,
+    "license_risk_score": 0.1
+  },
+  "MySQL": {
+    "name": "MySQL",
+    "description": "Relational database",
+    "capabilities": [
+      "database"
+    ],
+    "github_url": null,
+    "license": "GPL",
+    "security_score": 0.75,
+    "popularity_score": 0.5,
+    "compatibility_tags": [],
+    "metadata": {},
+    "cost_score": 0.2,
+    "complexity_score": 0.5,
+    "maturity_score": 0.9,
+    "license_risk_score": 0.4
+  },
+  "Redis": {
+    "name": "Redis",
+    "description": "In-memory cache",
+    "capabilities": [
+      "cache"
+    ],
+    "github_url": null,
+    "license": "BSD",
+    "security_score": 0.8,
+    "popularity_score": 0.5,
+    "compatibility_tags": [],
+    "metadata": {},
+    "cost_score": 0.3,
+    "complexity_score": 0.3,
+    "maturity_score": 0.9,
+    "license_risk_score": 0.2
+  },
+  "NewProject": {
+    "name": "NewProject",
+    "description": "A new test project",
+    "capabilities": [
+      "monitoring"
+    ],
+    "github_url": null,
+    "license": null,
+    "security_score": 0.5,
+    "popularity_score": 0.5,
+    "compatibility_tags": [],
+    "metadata": {},
+    "cost_score": 0.5,
+    "complexity_score": 0.5,
+    "maturity_score": 0.5,
+    "license_risk_score": 0.5
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "name": "Startup MVP",
+  "description": "Minimal viable product for SaaS startup",
+  "components": [
+    "Express",
+    "MongoDB",
+    "Redis",
+    "AWS EC2"
+  ],
+  "created": "2024-01-15",
+  "notes": "Single instance deployment, no replication, no monitoring"
+}

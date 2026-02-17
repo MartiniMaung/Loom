@@ -1,0 +1,1 @@
+﻿{  "name": "Test Web App",  "description": "Test application for evolution",  "components": [    {      "name": "Django",      "role": "Web Framework"    },    {      "name": "PostgreSQL",      "role": "Database"    }  ]}

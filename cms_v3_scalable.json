@@ -1,0 +1,63 @@
+{
+  "name": "Modern Content Management System (Scalable)",
+  "description": "Complete CMS with authentication, media storage, and search - Enhanced for scalability. Applied: Enhance database for better scalability, Add caching layer for performance, Add message queue for async processing",
+  "components": [
+    {
+      "name": "Django",
+      "role": "CMS Framework",
+      "capabilities": [
+        "web_framework"
+      ]
+    },
+    {
+      "name": "PostgreSQL",
+      "role": "Content Database",
+      "capabilities": [
+        "database"
+      ]
+    },
+    {
+      "name": "Keycloak",
+      "role": "Authentication & User Management",
+      "capabilities": [
+        "authentication"
+      ]
+    },
+    {
+      "name": "MinIO",
+      "role": "Media & File Storage",
+      "capabilities": [
+        "object_storage"
+      ]
+    },
+    {
+      "name": "Elasticsearch",
+      "role": "Content Search Engine",
+      "capabilities": [
+        "search"
+      ]
+    },
+    {
+      "name": "Redis",
+      "role": "Cache & Session Storage",
+      "capabilities": [
+        "database",
+        "cache"
+      ]
+    },
+    {
+      "name": "RabbitMQ",
+      "role": "Message Queue for Async Processing",
+      "capabilities": [
+        "message_queue"
+      ]
+    }
+  ],
+  "tags": [
+    "scalable",
+    "evolved"
+  ],
+  "evolution_notes": [
+    "Database scalability enhanced"
+  ]
+}

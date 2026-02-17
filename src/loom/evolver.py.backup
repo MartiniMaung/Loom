@@ -1,0 +1,216 @@
+"""
+Pattern Evolver - Evolve existing architectural patterns with new capabilities.
+Phase 1.2 of Loom Roadmap: Pattern Evolution
+"""
+
+from typing import List, Dict, Any, Optional
+from pathlib import Path
+import json
+
+from .core import OSSProject, CapabilityType, Intent
+from .graph import SemanticGraph
+from .weaver import Pattern
+
+class PatternEvolver:
+    """Evolves existing patterns with new capabilities."""
+    
+    def __init__(self, graph: SemanticGraph):
+        self.graph = graph
+        self.scalability_rules = self._build_scalability_rules()
+    
+    def _build_scalability_rules(self) -> List[Dict[str, Any]]:
+        """Define rules for making patterns more scalable."""
+        return [
+            {
+                "name": "database_scalability",
+                "condition": lambda pattern: self._has_component_with_capability(pattern, "database"),
+                "action": lambda pattern: self._enhance_database_scalability(pattern),
+                "description": "Enhance database for better scalability"
+            },
+            {
+                "name": "add_caching_layer",
+                "condition": lambda pattern: self._is_data_intensive(pattern),
+                "action": lambda pattern: self._add_caching_layer(pattern),
+                "description": "Add caching layer for performance"
+            },
+            {
+                "name": "async_processing",
+                "condition": lambda pattern: self._has_synchronous_bottlenecks(pattern),
+                "action": lambda pattern: self._add_message_queue(pattern),
+                "description": "Add message queue for async processing"
+            }
+        ]
+    
+    def load_pattern(self, pattern_file: str) -> Pattern:
+        """Load a pattern from JSON file."""
+        with open(pattern_file, 'r', encoding='utf-8') as f:
+            pattern_data = json.load(f)
+        
+        # Create pattern object (simplified - may need adjustment based on actual Pattern class)
+        pattern = Pattern(
+            name=pattern_data.get("name", "Unnamed Pattern"),
+            description=pattern_data.get("description", ""),
+            intent=None  # Original intent may not be stored
+        )
+        
+        # Add components (this is simplified - need to map project names to OSSProject objects)
+        for comp in pattern_data.get("components", []):
+            project_name = comp.get("name")
+            role = comp.get("role", "Unknown")
+            project = self.graph.projects.get(project_name)
+            if project:
+                pattern.add_component(project, role)
+        
+        return pattern
+    
+    def evolve(self, pattern: Pattern, evolution_type: str) -> Pattern:
+        """Evolve a pattern with specific evolution type."""
+        if evolution_type == "make-scalable":
+            return self._make_scalable(pattern)
+        elif evolution_type == "add-security":
+            return self._add_security(pattern)
+        elif evolution_type == "optimize-cost":
+            return self._optimize_cost(pattern)
+        else:
+            raise ValueError(f"Unknown evolution type: {evolution_type}")
+    
+    def _make_scalable(self, pattern: Pattern) -> Pattern:
+        """Make a pattern more scalable."""
+        evolved_pattern = Pattern(
+            name=f"{pattern.name} (Scalable)",
+            description=f"{pattern.description} - Enhanced for scalability",
+            intent=pattern.intent
+        )
+        
+        # Copy existing components
+        for project, role in pattern.components:
+            evolved_pattern.add_component(project, role)
+        
+        # Apply scalability rules
+        applied_transformations = []
+        for rule in self.scalability_rules:
+            if rule["condition"](pattern):
+                rule["action"](evolved_pattern)
+                applied_transformations.append(rule["description"])
+        
+        # Add transformation notes
+        if applied_transformations:
+            evolved_pattern.tags = pattern.tags + ["scalable", "evolved"]
+            evolved_pattern.description += f". Applied: {', '.join(applied_transformations)}"
+        
+        return evolved_pattern
+    
+    def _add_security(self, pattern: Pattern) -> Pattern:
+        """Add security enhancements to a pattern."""
+        # TODO: Implement using our security scoring from Phase 1
+        evolved_pattern = Pattern(
+            name=f"{pattern.name} (Secure)",
+            description=f"{pattern.description} - Enhanced for security",
+            intent=pattern.intent
+        )
+        
+        # Copy existing components
+        for project, role in pattern.components:
+            evolved_pattern.add_component(project, role)
+        
+        # Add security components if missing
+        if not self._has_component_with_capability(pattern, "authentication"):
+            # Add Keycloak if available (highest security score)
+            keycloak = self.graph.projects.get("Keycloak")
+            if keycloak:
+                evolved_pattern.add_component(keycloak, "Authentication & Identity Management")
+        
+        evolved_pattern.tags = pattern.tags + ["secure", "evolved"]
+        return evolved_pattern
+    
+    def _optimize_cost(self, pattern: Pattern) -> Pattern:
+        """Optimize pattern for cost reduction."""
+        # TODO: Implement cost optimization logic
+        evolved_pattern = Pattern(
+            name=f"{pattern.name} (Cost-Optimized)",
+            description=f"{pattern.description} - Optimized for cost efficiency",
+            intent=pattern.intent
+        )
+        
+        # Copy existing components
+        for project, role in pattern.components:
+            evolved_pattern.add_component(project, role)
+        
+        evolved_pattern.tags = pattern.tags + ["cost-optimized", "evolved"]
+        return evolved_pattern
+    
+    # Helper methods for scalability rules
+    def _has_component_with_capability(self, pattern: Pattern, capability: str) -> bool:
+        """Check if pattern has a component with specific capability."""
+        for project, _ in pattern.components:
+            if any(cap.value == capability for cap in project.capabilities):
+                return True
+        return False
+    
+    def _is_data_intensive(self, pattern: Pattern) -> bool:
+        """Check if pattern is data-intensive (simplified heuristic)."""
+        # Simple heuristic: has database and is web framework
+        has_db = self._has_component_with_capability(pattern, "database")
+        has_web = self._has_component_with_capability(pattern, "web_framework")
+        return has_db and has_web
+    
+    def _has_synchronous_bottlenecks(self, pattern: Pattern) -> bool:
+        """Check for synchronous processing bottlenecks."""
+        # Simple heuristic: has web framework but no async/messaging
+        has_web = self._has_component_with_capability(pattern, "web_framework")
+        has_async = self._has_component_with_capability(pattern, "message_queue")
+        return has_web and not has_async
+    
+    def _enhance_database_scalability(self, pattern: Pattern) -> None:
+        """Enhance database for scalability."""
+        # Example: Could suggest moving from SQLite to PostgreSQL
+        # For now, just add a tag
+        if not hasattr(pattern, 'transformation_notes'):
+            pattern.transformation_notes = []
+        pattern.transformation_notes.append("Database scalability enhanced")
+    
+    def _add_caching_layer(self, pattern: Pattern) -> None:
+        """Add caching layer to pattern."""
+        # Add Redis if available
+        redis = self.graph.projects.get("Redis")
+        if redis and not self._has_component_by_name(pattern, "Redis"):
+            pattern.add_component(redis, "Cache & Session Storage")
+    
+    def _add_message_queue(self, pattern: Pattern) -> None:
+        """Add message queue for async processing."""
+        # Add RabbitMQ or Kafka if available
+        rabbitmq = self.graph.projects.get("RabbitMQ")
+        kafka = self.graph.projects.get("Apache_Kafka")
+        
+        if rabbitmq and not self._has_component_by_name(pattern, "RabbitMQ"):
+            pattern.add_component(rabbitmq, "Message Queue for Async Processing")
+        elif kafka and not self._has_component_by_name(pattern, "Apache_Kafka"):
+            pattern.add_component(kafka, "Event Streaming Platform")
+    
+    def _has_component_by_name(self, pattern: Pattern, name: str) -> bool:
+        """Check if pattern has component with given name."""
+        for project, _ in pattern.components:
+            if project.name == name:
+                return True
+        return False
+    
+    def save_pattern(self, pattern: Pattern, output_file: str) -> None:
+        """Save evolved pattern to JSON file."""
+        # This is simplified - would need to match your Pattern.to_dict() method
+        pattern_dict = {
+            "name": pattern.name,
+            "description": pattern.description,
+            "components": [
+                {
+                    "name": project.name,
+                    "role": role,
+                    "capabilities": [cap.value for cap in project.capabilities]
+                }
+                for project, role in pattern.components
+            ],
+            "tags": pattern.tags if hasattr(pattern, 'tags') else [],
+            "evolution_notes": getattr(pattern, 'transformation_notes', [])
+        }
+        
+        with open(output_file, 'w', encoding='utf-8') as f:
+            json.dump(pattern_dict, f, indent=2)

@@ -1,0 +1,42 @@
+{
+  "name": "Test Web App (Scalable)",
+  "description": "Test application for evolution - Enhanced for scalability. Applied: Enhance database for better scalability, Add caching layer for performance, Add message queue for async processing",
+  "components": [
+    {
+      "name": "Django",
+      "role": "Web Framework",
+      "capabilities": [
+        "web_framework"
+      ]
+    },
+    {
+      "name": "PostgreSQL",
+      "role": "Database",
+      "capabilities": [
+        "database"
+      ]
+    },
+    {
+      "name": "Redis",
+      "role": "Cache & Session Storage",
+      "capabilities": [
+        "database",
+        "cache"
+      ]
+    },
+    {
+      "name": "RabbitMQ",
+      "role": "Message Queue for Async Processing",
+      "capabilities": [
+        "message_queue"
+      ]
+    }
+  ],
+  "tags": [
+    "scalable",
+    "evolved"
+  ],
+  "evolution_notes": [
+    "Database scalability enhanced"
+  ]
+}

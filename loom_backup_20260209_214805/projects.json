@@ -1,0 +1,57 @@
+﻿{
+  "FastAPI": {
+    "name": "FastAPI",
+    "description": "Modern, fast web framework for building APIs with Python",
+    "github_url": null,
+    "capabilities": ["web_framework"],
+    "license": "MIT",
+    "popularity_score": 0.9,
+    "security_score": 0.75,
+    "compatibility_tags": ["python", "async", "rest"],
+    "metadata": {}
+  },
+  "PostgreSQL": {
+    "name": "PostgreSQL",
+    "description": "Powerful, open source object-relational database system",
+    "github_url": null,
+    "capabilities": ["database"],
+    "license": "PostgreSQL",
+    "popularity_score": 0.95,
+    "security_score": 0.80,
+    "compatibility_tags": ["sql", "acid", "relational"],
+    "metadata": {}
+  },
+  "Keycloak": {
+    "name": "Keycloak",
+    "description": "Open Source Identity and Access Management",
+    "github_url": null,
+    "capabilities": ["authentication"],
+    "license": "Apache 2.0",
+    "popularity_score": 0.85,
+    "security_score": 0.90,
+    "compatibility_tags": ["auth", "sso", "security"],
+    "metadata": {}
+  },
+  "Django": {
+    "name": "Django",
+    "description": "High-level Python Web framework",
+    "github_url": null,
+    "capabilities": ["web_framework"],
+    "license": "BSD",
+    "popularity_score": 0.88,
+    "security_score": 0.85,
+    "compatibility_tags": ["python", "batteries-included"],
+    "metadata": {}
+  },
+  "Elasticsearch": {
+    "name": "Elasticsearch",
+    "description": "Distributed search and analytics engine",
+    "github_url": null,
+    "capabilities": ["search"],
+    "license": "Elastic License",
+    "popularity_score": 0.88,
+    "security_score": 0.80,
+    "compatibility_tags": ["search", "analytics"],
+    "metadata": {}
+  }
+}

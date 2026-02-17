@@ -1,0 +1,18 @@
+﻿{
+  "name": "FastAPI Application",
+  "description": "Modern API with FastAPI",
+  "components": [
+    {
+      "name": "FastAPI",
+      "role": "API Framework"
+    },
+    {
+      "name": "MySQL", 
+      "role": "Database"
+    },
+    {
+      "name": "RabbitMQ",
+      "role": "Message Queue"
+    }
+  ]
+}

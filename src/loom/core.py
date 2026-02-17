@@ -5,38 +5,120 @@ from typing import List, Optional, Dict, Any
 from enum import Enum
 from pydantic import BaseModel, Field
 
+"""
+Core data models for Loom
+"""
+from dataclasses import dataclass, field  # Add this line
+from enum import Enum
+from typing import List, Optional, Dict, Any
+
 
 class CapabilityType(str, Enum):
-    """Types of capabilities that OSS projects provide."""
-    DATABASE = "database"
-    WEB_FRAMEWORK = "web_framework"
-    AI_MODEL = "ai_model"
-    MESSAGE_QUEUE = "message_queue"
-    CACHE = "cache"
-    AUTHENTICATION = "authentication"
-    STORAGE = "storage"
-    MONITORING = "monitoring"
-    SEARCH = "search"
-    OBJECT_STORAGE = "object_storage"
-    LOAD_BALANCER = "load_balancer"
-    PAYMENT = "payment"
+    """Types of capabilities an OSS project can provide"""
+
+    # ... existing capabilities ...
+    PAYMENT = "payment"  # Add this
+    BILLING = "billing"  # Add this too
+    SUBSCRIPTION = "subscription"
+    INVOICING = "invoicing"
+
+    # ... existing capabilities ...
+    EMAIL = "email"  # Add this
+    NOTIFICATION = "notification"  # Add this too
+    SMS = "sms"
+    PUSH = "push"
+
+
+    # ... existing capabilities ...
+    LOAD_BALANCER = "load_balancer"  # Add this
+    REVERSE_PROXY = "reverse_proxy"  # Add this too
     CDN = "cdn"
-    EMAIL = "email"
-    OTHER = "other"
+
+    # Web & API
+    WEB_FRAMEWORK = "web_framework"
+    API_GATEWAY = "api_gateway"
+    GRAPHQL = "graphql"
+    
+    # Data Storage
+    DATABASE = "database"
+    CACHE = "cache"
+    STORAGE = "storage"
+    OBJECT_STORAGE = "object_storage"
+    SEARCH = "search"  # Add this
+    DATA_WAREHOUSE = "data_warehouse"
+    
+    # Messaging & Streaming
+    MESSAGE_QUEUE = "message_queue"
+    STREAMING = "streaming"
+    EVENT_BUS = "event_bus"
+    
+    # Security & Identity
+    AUTHENTICATION = "authentication"
+    AUTHORIZATION = "authorization"
+    SECRETS = "secrets"
     HIGH_SECURITY = "high_security"
+    
+    # Observability
+    MONITORING = "monitoring"
+    LOGGING = "logging"
+    TRACING = "tracing"
+    METRICS = "metrics"
+    
+    # AI/ML
+    AI_MODEL = "ai_model"
+    ML_FRAMEWORK = "ml_framework"
+    ML_PLATFORM = "ml_platform"
+    VECTOR_DB = "vector_db"
+    
+    # Infrastructure
+    CONTAINER = "container"
+    ORCHESTRATION = "orchestration"
+    SERVICE_MESH = "service_mesh"
+    INFRASTRUCTURE = "infrastructure"
+    CI_CD = "ci_cd"
+    
+    # Frontend
+    FRONTEND = "frontend"
+    UI_FRAMEWORK = "ui_framework"
+    MOBILE = "mobile"
+    
+    # Integration
+    MESSAGE_BROKER = "message_broker"
+    ESB = "esb"
+    WORKFLOW = "workflow"
+    
+    @classmethod
+    def _missing_(cls, value):
+        """Handle case-insensitive lookup"""
+        if isinstance(value, str):
+            for member in cls:
+                if member.value == value.lower():
+                    return member
+        return None
 
-class OSSProject(BaseModel):
-    """Represents an Open Source Software project."""
-    name: str = Field(..., description="Name of the project")
-    description: str = Field(..., description="Brief description")
-    github_url: Optional[str] = Field(None, description="GitHub repository URL")
-    capabilities: List[CapabilityType] = Field(default_factory=list, description="What this project can do")
-    license: Optional[str] = Field(None, description="License type (MIT, Apache, GPL, etc.)")
-    popularity_score: float = Field(0.0, description="Popularity metric (0-1)")
-    security_score: float = Field(0.5, description="Security rating (0-1), default 0.5")
-    compatibility_tags: List[str] = Field(default_factory=list, description="Tags for compatibility")
-    metadata: Dict[str, Any] = Field(default_factory=dict, description="Additional metadata")
-
+     
+@dataclass
+class OSSProject:
+    """Open Source Software Project"""
+    name: str
+    description: str = ""
+    capabilities: List[CapabilityType] = field(default_factory=list)
+    github_url: Optional[str] = None
+    license: Optional[str] = None
+    security_score: float = 0.5
+    popularity_score: float = 0.5
+    compatibility_tags: List[str] = field(default_factory=list)
+    metadata: Dict[str, Any] = field(default_factory=dict)  # Add this line
+    # New fields for multi-objective scoring
+    cost_score: float = 0.5
+    complexity_score: float = 0.5
+    maturity_score: float = 0.5
+    license_risk_score: float = 0.5
+    
+    def __post_init__(self):
+        # Convert string capabilities to enum
+        if self.capabilities and isinstance(self.capabilities[0], str):
+            self.capabilities = [CapabilityType(c) for c in self.capabilities]
 
 class RelationshipType(str, Enum):
     """Types of relationships between OSS projects."""

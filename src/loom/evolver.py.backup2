@@ -1,0 +1,117 @@
+    def _add_security(self, pattern: Pattern) -> Pattern:
+        """Add security enhancements to a pattern using Phase 1 security scoring."""
+        evolved_pattern = Pattern(
+            name=f"{pattern.name} (Secure)",
+            description=f"{pattern.description} - Enhanced for security",
+            intent=pattern.intent
+        )
+        
+        # Track security improvements made
+        security_improvements = []
+        
+        # 1. Copy existing components, but consider upgrades
+        for project, role in pattern.components:
+            # Check if we should upgrade this component for better security
+            upgraded_project = self._suggest_security_upgrade(project, role)
+            if upgraded_project and upgraded_project != project:
+                evolved_pattern.add_component(upgraded_project, f"{role} (Security Enhanced)")
+                security_improvements.append(f"Upgraded {project.name}→{upgraded_project.name} for security")
+            else:
+                evolved_pattern.add_component(project, role)
+        
+        # 2. Add missing security components based on pattern type
+        added_components = self._add_missing_security_components(evolved_pattern, pattern)
+        security_improvements.extend(added_components)
+        
+        # 3. Calculate and show security score improvement
+        original_score = self._calculate_pattern_security_score(pattern)
+        new_score = self._calculate_pattern_security_score(evolved_pattern)
+        score_improvement = new_score - original_score
+        
+        if score_improvement > 0:
+            security_improvements.append(f"Security score: {original_score:.2f}→{new_score:.2f} (+{score_improvement:.2f})")
+        
+        # 4. Update description with security improvements
+        if security_improvements:
+            evolved_pattern.description += f". Security enhancements: {', '.join(security_improvements[:3])}"
+            if hasattr(evolved_pattern, 'transformation_notes'):
+                evolved_pattern.transformation_notes.extend(security_improvements)
+            else:
+                evolved_pattern.transformation_notes = security_improvements
+        
+        evolved_pattern.tags = pattern.tags + ["secure", "evolved", "high_security"]
+        return evolved_pattern
+    
+    def _suggest_security_upgrade(self, project: OSSProject, role: str) -> Optional[OSSProject]:
+        """Suggest a higher-security alternative for a component."""
+        # Security upgrade mappings
+        security_upgrades = {
+            # Web frameworks
+            "FastAPI": "Django",  # FastAPI 0.75 → Django 0.85
+            # Databases  
+            "MySQL": "PostgreSQL",  # MySQL 0.78 → PostgreSQL 0.80
+            # Message queues
+            "RabbitMQ": "Apache_Kafka",  # RabbitMQ 0.77 → Kafka 0.84
+            # Authentication (none → Keycloak is handled separately)
+        }
+        
+        if project.name in security_upgrades:
+            upgrade_name = security_upgrades[project.name]
+            upgraded = self.graph.projects.get(upgrade_name)
+            if upgraded and hasattr(upgraded, 'security_score') and hasattr(project, 'security_score'):
+                if upgraded.security_score > project.security_score:
+                    return upgraded
+        
+        return None
+    
+    def _add_missing_security_components(self, evolved_pattern: Pattern, original_pattern: Pattern) -> List[str]:
+        """Add missing security components based on pattern type."""
+        added = []
+        
+        # Always add authentication if missing
+        if not self._has_component_with_capability(original_pattern, "authentication"):
+            keycloak = self.graph.projects.get("Keycloak")
+            ory_kratos = self.graph.projects.get("Ory_Kratos")
+            
+            # Choose highest security score
+            if keycloak and ory_kratos:
+                best_auth = keycloak if keycloak.security_score >= ory_kratos.security_score else ory_kratos
+            elif keycloak:
+                best_auth = keycloak
+            elif ory_kratos:
+                best_auth = ory_kratos
+            else:
+                best_auth = None
+            
+            if best_auth:
+                evolved_pattern.add_component(best_auth, "Authentication & Identity Management")
+                added.append(f"Added {best_auth.name} for authentication (security: {best_auth.security_score:.2f})")
+        
+        # Add monitoring for security auditing if web app
+        if self._has_component_with_capability(original_pattern, "web_framework"):
+            if not self._has_component_with_capability(original_pattern, "monitoring"):
+                prometheus = self.graph.projects.get("Prometheus")
+                grafana = self.graph.projects.get("Grafana")
+                
+                if prometheus:
+                    evolved_pattern.add_component(prometheus, "Security Monitoring & Metrics")
+                    added.append(f"Added {prometheus.name} for security monitoring")
+                if grafana:
+                    evolved_pattern.add_component(grafana, "Security Dashboard & Visualization")
+                    added.append(f"Added {grafana.name} for security visualization")
+        
+        return added
+    
+    def _calculate_pattern_security_score(self, pattern: Pattern) -> float:
+        """Calculate average security score for a pattern."""
+        if not pattern.components:
+            return 0.0
+        
+        security_scores = []
+        for project, _ in pattern.components:
+            if hasattr(project, 'security_score') and project.security_score is not None:
+                security_scores.append(project.security_score)
+            else:
+                security_scores.append(0.0)
+        
+        return sum(security_scores) / len(security_scores) if security_scores else 0.0

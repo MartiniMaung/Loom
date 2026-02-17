@@ -1,0 +1,25 @@
+{
+  "name": "Minimal Viable Architecture (Secure)",
+  "description": "Minimal components to satisfy all requirements - Enhanced for security",
+  "components": [
+    {
+      "name": "FastAPI",
+      "role": "Application Framework",
+      "capabilities": [
+        "web_framework"
+      ]
+    },
+    {
+      "name": "Keycloak",
+      "role": "Authentication & Identity Management",
+      "capabilities": [
+        "authentication"
+      ]
+    }
+  ],
+  "tags": [
+    "secure",
+    "evolved"
+  ],
+  "evolution_notes": []
+}

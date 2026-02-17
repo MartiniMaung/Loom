@@ -5,71 +5,13 @@ from typing import List, Dict, Any, Optional, Tuple
 from .core import Intent, CapabilityType, OSSProject, RelationshipType
 from .graph import SemanticGraph
 
-def calculate_weighted_score(components: List[OSSProject], weights: Dict[str, float]) -> float:
-    """
-    Calculate weighted score based on multiple objectives
-    
-    Args:
-        components: List of OSSProject objects
-        weights: Dictionary with keys like 'security', 'cost', 'complexity', 
-                'maturity', 'license_risk' and values summing to 1.0
-    
-    Returns:
-        Weighted score between 0 and 1
-    """
-    if not components:
-        return 0.0
-    
-    # Default weights if not provided
-    default_weights = {
-        'security': 0.4,
-        'cost': 0.15,
-        'complexity': 0.15,
-        'maturity': 0.2,
-        'license_risk': 0.1
-    }
-    
-    # Merge provided weights with defaults
-    w = default_weights.copy()
-    if weights:
-        w.update(weights)
-    
-    # Normalize weights to sum to 1.0
-    total = sum(w.values())
-    if total > 0:
-        w = {k: v/total for k, v in w.items()}
-    
-    total_score = 0.0
-    
-    for comp in components:
-        comp_score = 0.0
-        
-        # Security (higher is better)
-        comp_score += w['security'] * getattr(comp, 'security_score', 0.5)
-        
-        # Cost (lower is better, so invert)
-        comp_score += w['cost'] * (1 - getattr(comp, 'cost_score', 0.5))
-        
-        # Complexity (lower is better, so invert)
-        comp_score += w['complexity'] * (1 - getattr(comp, 'complexity_score', 0.5))
-        
-        # Maturity (higher is better)
-        comp_score += w['maturity'] * getattr(comp, 'maturity_score', 0.5)
-        
-        # License risk (lower is better, so invert)
-        comp_score += w['license_risk'] * (1 - getattr(comp, 'license_risk_score', 0.5))
-        
-        total_score += comp_score
-    
-    return total_score / len(components)  # Average across components
 
 class Pattern:
     """A discovered architectural pattern."""
     
-    def __init__(self, name: str, description: str, intent: Intent = None):        
+    def __init__(self, name: str, description: str):
         self.name = name
         self.description = description
-        self.intent = intent  # ⬅️⬅️⬅️ CRITICAL: ADD THIS LINE
         self.components: List[Tuple[OSSProject, str]] = []  # (project, role)
         self.connections: List[Dict[str, Any]] = []
         self.complexity: float = 0.0  # 0-1 scale
@@ -80,57 +22,64 @@ class Pattern:
         """Add a component to the pattern."""
         self.components.append((project, role))
         
-   
-    def calculate_metrics(self, weights: Optional[Dict[str, float]] = None) -> None:
-        """
-        Calculate confidence and complexity scores with optional weights
-
-        Args:
-            weights: Dictionary of objective weights (security, cost, complexity, maturity, license_risk)
-        """
-        if not self.components:
+    def calculate_metrics(self, graph: SemanticGraph):
+        """Calculate pattern metrics."""
+        # Complexity based on number of components and relationships
+        num_components = len(self.components)
+        
+        # Count internal connections between components
+        internal_connections = 0
+        component_names = [comp[0].name for comp in self.components]
+        for source in component_names:
+            for target in component_names:
+                if source != target and graph.graph.has_edge(source, target):
+                    internal_connections += 1
+        
+        self.complexity = min(1.0, (num_components * 0.1) + (internal_connections * 0.05))
+        
+        # Confidence based on popularity and compatibility
+        if self.components:
+            # Average popularity
+            pop_sum = sum(comp[0].popularity_score for comp in self.components)
+            pop_avg = pop_sum / len(self.components)
+            
+            # Compatibility score
+            compat_score = 0.0
+            compat_pairs = 0
+            for i, (source_comp, _) in enumerate(self.components):
+                for j, (target_comp, _) in enumerate(self.components):
+                    if i != j:
+                        if graph.graph.has_edge(source_comp.name, target_comp.name):
+                            edge_data = graph.graph[source_comp.name][target_comp.name]
+                            if edge_data.get('relationship_type') == RelationshipType.COMPATIBLE_WITH.value:
+                                compat_score += edge_data.get('strength', 0.5)
+                                compat_pairs += 1
+            
+            avg_compat = compat_score / max(1, compat_pairs)
+            self.confidence = (pop_avg * 0.7) + (avg_compat * 0.3)
+        else:
             self.confidence = 0.0
-            self.complexity = 0.0
-            return
-        
-        # Calculate weighted score using multi-objective function
-        # Make sure we're passing the weights dict, not the graph
-        self.confidence = calculate_weighted_score([c[0] for c in self.components], weights or {})
-        
-        # Complexity: average of component complexities (inverted from simplicity)
-        complexities = []
-        for comp, _ in self.components:
-            # Use complexity_score if available, otherwise default to 0.5
-            comp_complexity = getattr(comp, 'complexity_score', 0.5)
-            complexities.append(comp_complexity)
-        
-        self.complexity = sum(complexities) / len(complexities)
-        
-        # Security boost for HIGH_SECURITY intent (legacy support)
-        if self.intent and CapabilityType.HIGH_SECURITY in self.intent.required_capabilities:
-            avg_security = sum(getattr(comp, 'security_score', 0.5) for comp, _ in self.components) / len(self.components)
-            security_boost = avg_security * 0.2  # Up to 20% boost
-            self.confidence = min(1.0, self.confidence + security_boost)   
-               
-    def to_dict(self, graph: SemanticGraph, weights: Optional[Dict[str, float]] = None) -> Dict[str, Any]:
+            
+    def to_dict(self, graph: SemanticGraph) -> Dict[str, Any]:
         """Convert pattern to dictionary."""
-        self.calculate_metrics(weights)  # Pass weights, not graph
+        self.calculate_metrics(graph)
         return {
             "name": self.name,
             "description": self.description,
+            "complexity": round(self.complexity, 3),
+            "confidence": round(self.confidence, 3),
             "components": [
                 {
-                    "name": comp.name,
+                    "name": project.name,
                     "role": role,
-                    "capabilities": [c.value for c in comp.capabilities],
-                    "popularity": getattr(comp, 'popularity_score', 0.5)
+                    "capabilities": [c.value for c in project.capabilities],
+                    "license": project.license or "Unknown",
+                    "popularity": project.popularity_score
                 }
-                for comp, role in self.components
+                for project, role in self.components
             ],
-            "connections": self._get_connections(graph),
-            "confidence": self.confidence,
-            "complexity": self.complexity
-        }  
+            "connections": self._get_connections(graph)
+        }
         
     def _get_connections(self, graph: SemanticGraph) -> List[Dict[str, Any]]:
         """Get connections between components in this pattern."""
@@ -153,20 +102,12 @@ class Pattern:
 
 
 class PatternWeaver:
-    """Weaves patterns from intent and graph"""
+    """The engine that weaves OSS capabilities into patterns."""
     
-    def __init__(self, graph: SemanticGraph, intent: Optional[Intent] = None):
-        """
-        Initialize the PatternWeaver.
-        
-        Args:
-            graph: SemanticGraph instance
-            intent: Optional Intent object (if not provided later)
-        """
+    def __init__(self, graph: SemanticGraph):
         self.graph = graph
-        self.intent = intent
-        self.patterns: List[Pattern] = []      
- 
+        self.patterns: List[Pattern] = []
+        
     def weave_for_intent(self, intent: Intent) -> List[Pattern]:
         """Weave patterns based on user intent."""
         self.patterns = []
@@ -240,9 +181,8 @@ class PatternWeaver:
                 # CMS Pattern 1: Full Featured CMS
                 pattern = Pattern(
                     name="Modern Content Management System",
-                description="Complete CMS with authentication, media storage, and search",
-                intent=intent  # ADD THIS LINE
-            )           
+                    description="Complete CMS with authentication, media storage, and search"
+                )
                 
                 pattern.add_component(web_framework, "CMS Framework")
                 pattern.add_component(database, "Content Database")
@@ -283,8 +223,7 @@ class PatternWeaver:
             # E-commerce needs: web framework, database, cache, message queue, monitoring
             pattern = Pattern(
                 name="E-commerce Platform",
-                description="Scalable online store with inventory, cart, orders, and payments",
-                intent=intent
+                description="Scalable online store with inventory, cart, orders, and payments"
             )
             
             # Add web framework
@@ -323,8 +262,7 @@ class PatternWeaver:
         # Analytics Pattern
         pattern = Pattern(
             name="Real-time Analytics Dashboard",
-            description="Data processing pipeline with visualization and monitoring",
-            intent=intent
+            description="Data processing pipeline with visualization and monitoring"
         )
         
         # Add message queue for data ingestion
@@ -371,8 +309,7 @@ class PatternWeaver:
             if fastapi and postgres:
                 pattern = Pattern(
                     name="Full Stack Python API",
-                    description="Production-ready web API with PostgreSQL database",
-                    intent=intent
+                    description="Production-ready web API with PostgreSQL database"
                 )
                 pattern.add_component(fastapi, "API Framework")
                 pattern.add_component(postgres, "Primary Database")
@@ -395,8 +332,7 @@ class PatternWeaver:
         # Pattern 2: Minimal Viable Pattern (one component per capability)
         pattern = Pattern(
             name="Minimal Viable Architecture",
-            description="Minimal components to satisfy all requirements",
-            intent=intent
+            description="Minimal components to satisfy all requirements"
         )
         
         role_map = {
@@ -424,7 +360,7 @@ class PatternWeaver:
         if pattern.components:  # Only add if we have components
             pattern.tags = ["minimal", "simple", "beginner"]
             self.patterns.append(pattern)
-
-    def get_all_patterns(self, weights: Optional[Dict[str, float]] = None) -> List[Dict[str, Any]]:
+    
+    def get_all_patterns(self) -> List[Dict[str, Any]]:
         """Get all discovered patterns as dictionaries."""
-        return [p.to_dict(self.graph, weights) for p in self.patterns]  
+        return [p.to_dict(self.graph) for p in self.patterns]

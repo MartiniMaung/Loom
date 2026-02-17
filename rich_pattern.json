@@ -1,0 +1,30 @@
+﻿{
+  "name": "Full Web Application",
+  "description": "Complete web app with database and authentication",
+  "complexity": 0.3,
+  "confidence": 0.75,
+  "components": [
+    {
+      "name": "Django",
+      "role": "Web Framework",
+      "capabilities": ["web_framework"],
+      "license": "BSD",
+      "popularity": 0.92
+    },
+    {
+      "name": "PostgreSQL",
+      "role": "Database",
+      "capabilities": ["database"],
+      "license": "PostgreSQL",
+      "popularity": 0.95
+    },
+    {
+      "name": "Redis",
+      "role": "Cache",
+      "capabilities": ["cache"],
+      "license": "BSD",
+      "popularity": 0.88
+    }
+  ],
+  "connections": []
+}

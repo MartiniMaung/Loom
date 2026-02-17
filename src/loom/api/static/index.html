@@ -254,10 +254,31 @@
 </head>
 <body>
     <div class="navbar">
-        <h1>Loom Architecture Dashboard <span>v1.0 - Phase 2.2</span></h1>
+        <h1>Loom Architecture Dashboard <span>v2.3 - Commercial Edition</span></h1>
     </div>
     
     <div class="container">
+        <!-- API Key Section -->
+        <div class="panel" style="margin-bottom: 2rem;">
+            <div class="panel-header">
+                <h2>🔑 API Authentication</h2>
+                <div>
+                    <button onclick="getDemoKey()">Get Demo Key</button>
+                    <button onclick="saveApiKey()" style="background: #27ae60;">Save Key</button>
+                    <button onclick="clearApiKey()" style="background: #e74c3c;">Clear</button>
+                </div>
+            </div>
+            <div class="panel-body">
+                <div style="display: flex; gap: 1rem; align-items: center;">
+                    <input type="text" id="api-key-input" placeholder="Enter your API key" style="flex: 1; padding: 0.75rem;">
+                    <span id="auth-status" style="font-weight: 500; color: #e74c3c;">Not authenticated</span>
+                </div>
+                <p style="margin-top: 0.5rem; color: #7f8c8d; font-size: 0.9rem;">
+                    <small>💡 Get a demo key (10 requests/day) or use your own API key. Keys are saved locally.</small>
+                </p>
+            </div>
+        </div>
+
         <!-- Stats -->
         <div class="stats-grid" id="stats">
             <div class="stat-card">
@@ -371,7 +392,7 @@
                         </select>
                     </div>
                     <div class="project-grid" id="project-grid">
-                        Loading projects...
+                        Enter API key to load projects...
                     </div>
                 </div>
             </div>
@@ -381,17 +402,92 @@
     <script>
         const API_BASE = 'http://localhost:8000/api/v1';
         let allProjects = [];
+        let apiKey = null;
         
         // Initialize
         document.addEventListener('DOMContentLoaded', function() {
+            // Try to load saved API key
+            apiKey = localStorage.getItem('loom_api_key');
+            if (apiKey) {
+                document.getElementById('api-key-input').value = apiKey;
+                document.getElementById('auth-status').textContent = 'Authenticated';
+                document.getElementById('auth-status').style.color = '#27ae60';
+            }
             loadStats();
             loadProjects();
             setupCapabilityTags();
         });
         
+        // Save API key
+        function saveApiKey() {
+            const keyInput = document.getElementById('api-key-input').value.trim();
+            if (keyInput) {
+                apiKey = keyInput;
+                localStorage.setItem('loom_api_key', apiKey);
+                document.getElementById('auth-status').textContent = 'Authenticated';
+                document.getElementById('auth-status').style.color = '#27ae60';
+                loadProjects(); // Reload projects with new key
+                loadStats();
+            }
+        }
+        
+        // Get demo key
+        async function getDemoKey() {
+            try {
+                const response = await fetch(`${API_BASE}/auth/demo`, {
+                    method: 'POST'
+                });
+                const data = await response.json();
+                document.getElementById('api-key-input').value = data.api_key;
+                saveApiKey();
+            } catch (e) {
+                alert('Failed to get demo key: ' + e.message);
+            }
+        }
+        
+        // Clear API key
+        function clearApiKey() {
+            apiKey = null;
+            localStorage.removeItem('loom_api_key');
+            document.getElementById('api-key-input').value = '';
+            document.getElementById('auth-status').textContent = 'Not authenticated';
+            document.getElementById('auth-status').style.color = '#e74c3c';
+            document.getElementById('project-grid').innerHTML = 'Enter API key to load projects...';
+        }
+        
+        // Helper for authenticated fetch
+        async function authenticatedFetch(url, options = {}) {
+            if (!apiKey) {
+                throw new Error('Please enter an API key first');
+            }
+            
+            const headers = {
+                'Content-Type': 'application/json',
+                'X-API-Key': apiKey,
+                ...options.headers
+            };
+            
+            const response = await fetch(url, {
+                ...options,
+                headers
+            });
+            
+            if (response.status === 401) {
+                clearApiKey();
+                throw new Error('Invalid or expired API key');
+            }
+            
+            if (response.status === 429) {
+                throw new Error('Rate limit exceeded. Please wait a moment.');
+            }
+            
+            return response;
+        }
+        
         // Load stats
         async function loadStats() {
             try {
+                // Health is public
                 const health = await fetch(`${API_BASE}/health`).then(r => r.json());
                 document.getElementById('api-status').textContent = health.status;
                 document.getElementById('api-version').textContent = `v${health.version}`;
@@ -399,31 +495,35 @@
                 document.getElementById('api-status').textContent = 'Offline';
             }
             
-            try {
-                const projects = await fetch(`${API_BASE}/projects`).then(r => r.json());
-                document.getElementById('project-count').textContent = projects.total;
-                
-                // Calculate average security
-                if (projects.projects.length > 0) {
-                    const avg = projects.projects.reduce((sum, p) => sum + p.security_score, 0) / projects.projects.length;
-                    document.getElementById('avg-security').textContent = avg.toFixed(2);
+            // Projects need auth - try with saved key if available
+            if (apiKey) {
+                try {
+                    const projects = await authenticatedFetch(`${API_BASE}/projects`).then(r => r.json());
+                    document.getElementById('project-count').textContent = projects.total;
+                    
+                    // Calculate average security
+                    if (projects.projects.length > 0) {
+                        const avg = projects.projects.reduce((sum, p) => sum + p.security_score, 0) / projects.projects.length;
+                        document.getElementById('avg-security').textContent = avg.toFixed(2);
+                    }
+                    
+                    // Get unique capabilities
+                    const caps = new Set();
+                    projects.projects.forEach(p => p.capabilities.forEach(c => caps.add(c)));
+                    document.getElementById('capability-count').textContent = caps.size;
+                    
+                    // Populate filter dropdown
+                    const filter = document.getElementById('project-filter');
+                    filter.innerHTML = '<option value="">All Projects</option>';
+                    caps.forEach(c => {
+                        const option = document.createElement('option');
+                        option.value = c;
+                        option.textContent = c;
+                        filter.appendChild(option);
+                    });
+                } catch (e) {
+                    console.error('Failed to load projects for stats', e);
                 }
-                
-                // Get unique capabilities
-                const caps = new Set();
-                projects.projects.forEach(p => p.capabilities.forEach(c => caps.add(c)));
-                document.getElementById('capability-count').textContent = caps.size;
-                
-                // Populate filter dropdown
-                const filter = document.getElementById('project-filter');
-                caps.forEach(c => {
-                    const option = document.createElement('option');
-                    option.value = c;
-                    option.textContent = c;
-                    filter.appendChild(option);
-                });
-            } catch (e) {
-                console.error('Failed to load stats', e);
             }
         }
         
@@ -471,9 +571,8 @@
             resultDiv.innerHTML = '<div class="loading">Generating pattern...</div>';
             
             try {
-                const response = await fetch(`${API_BASE}/weave`, {
+                const response = await authenticatedFetch(`${API_BASE}/weave`, {
                     method: 'POST',
-                    headers: {'Content-Type': 'application/json'},
                     body: JSON.stringify({
                         description: description,
                         capabilities: capabilities,
@@ -500,9 +599,8 @@
                 const resultDiv = document.getElementById('evolve-result');
                 resultDiv.innerHTML = '<div class="loading">Evolving pattern...</div>';
                 
-                const response = await fetch(`${API_BASE}/evolve`, {
+                const response = await authenticatedFetch(`${API_BASE}/evolve`, {
                     method: 'POST',
-                    headers: {'Content-Type': 'application/json'},
                     body: JSON.stringify({
                         pattern_json: patternJson,
                         evolutions: evolutions,
@@ -527,9 +625,8 @@
                 const resultDiv = document.getElementById('audit-result');
                 resultDiv.innerHTML = '<div class="loading">Auditing pattern...</div>';
                 
-                const response = await fetch(`${API_BASE}/audit`, {
+                const response = await authenticatedFetch(`${API_BASE}/audit`, {
                     method: 'POST',
-                    headers: {'Content-Type': 'application/json'},
                     body: JSON.stringify({
                         pattern_json: patternJson,
                         format: 'json'
@@ -558,6 +655,11 @@
         
         // Load projects
         async function loadProjects() {
+            if (!apiKey) {
+                document.getElementById('project-grid').innerHTML = '<div class="error">Please enter an API key first</div>';
+                return;
+            }
+            
             const filter = document.getElementById('project-filter').value;
             let url = `${API_BASE}/projects?limit=50`;
             if (filter) {
@@ -568,7 +670,7 @@
             grid.innerHTML = '<div class="loading">Loading projects...</div>';
             
             try {
-                const response = await fetch(url);
+                const response = await authenticatedFetch(url);
                 const data = await response.json();
                 allProjects = data.projects;
                 displayProjects(allProjects);

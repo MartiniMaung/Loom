@@ -1,0 +1,52 @@
+{
+  "name": "Modern Content Management System (Cost-Optimized)",
+  "description": "Complete CMS with authentication, media storage, and search - Optimized for cost efficiency. Cost optimizations: Replaced Keycloak\u2192Ory Kratos for cost savings, Replaced Elasticsearch\u2192PostgreSQL for cost savings, Multiple databases detected - consider consolidation",
+  "components": [
+    {
+      "name": "Django",
+      "role": "CMS Framework",
+      "capabilities": [
+        "web_framework"
+      ]
+    },
+    {
+      "name": "PostgreSQL",
+      "role": "Content Database",
+      "capabilities": [
+        "database"
+      ]
+    },
+    {
+      "name": "Ory Kratos",
+      "role": "Authentication & User Management (Cost-Optimized)",
+      "capabilities": [
+        "authentication"
+      ]
+    },
+    {
+      "name": "MinIO",
+      "role": "Media & File Storage",
+      "capabilities": [
+        "object_storage"
+      ]
+    },
+    {
+      "name": "PostgreSQL",
+      "role": "Content Search Engine (Cost-Optimized)",
+      "capabilities": [
+        "database"
+      ]
+    }
+  ],
+  "tags": [
+    "cost-optimized",
+    "evolved",
+    "budget_friendly"
+  ],
+  "evolution_notes": [
+    "Replaced Keycloak\u2192Ory Kratos for cost savings",
+    "Replaced Elasticsearch\u2192PostgreSQL for cost savings",
+    "Multiple databases detected - consider consolidation",
+    "Cost efficiency: 1.43\u21921.17 (+0.26 savings)"
+  ]
+}

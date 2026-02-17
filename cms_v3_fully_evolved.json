@@ -1,0 +1,87 @@
+{
+  "name": "Modern Content Management System (Scalable) (Secure) (Cost-Optimized)",
+  "description": "Complete CMS with authentication, media storage, and search - Enhanced for scalability. Applied: Enhance database for better scalability, Add caching layer for performance, Add message queue for async processing - Enhanced for security. Security enhancements: Upgraded RabbitMQ\u2192Apache Kafka for security, Added Prometheus for security monitoring, Added Grafana for security visualization - Optimized for cost efficiency. Cost optimizations: Replaced Keycloak\u2192Ory Kratos for cost savings, Replaced Elasticsearch\u2192PostgreSQL for cost savings, Replaced Grafana\u2192Prometheus for cost savings",
+  "components": [
+    {
+      "name": "Django",
+      "role": "CMS Framework",
+      "capabilities": [
+        "web_framework"
+      ]
+    },
+    {
+      "name": "PostgreSQL",
+      "role": "Content Database",
+      "capabilities": [
+        "database"
+      ]
+    },
+    {
+      "name": "Ory Kratos",
+      "role": "Authentication & User Management (Cost-Optimized)",
+      "capabilities": [
+        "authentication"
+      ]
+    },
+    {
+      "name": "MinIO",
+      "role": "Media & File Storage",
+      "capabilities": [
+        "object_storage"
+      ]
+    },
+    {
+      "name": "PostgreSQL",
+      "role": "Content Search Engine (Cost-Optimized)",
+      "capabilities": [
+        "database"
+      ]
+    },
+    {
+      "name": "Redis",
+      "role": "Cache & Session Storage",
+      "capabilities": [
+        "database",
+        "cache"
+      ]
+    },
+    {
+      "name": "Apache Kafka",
+      "role": "Message Queue for Async Processing (Security Enhanced)",
+      "capabilities": [
+        "message_queue"
+      ]
+    },
+    {
+      "name": "Prometheus",
+      "role": "Security Monitoring & Metrics",
+      "capabilities": [
+        "monitoring"
+      ]
+    },
+    {
+      "name": "Prometheus",
+      "role": "Security Dashboard & Visualization (Cost-Optimized)",
+      "capabilities": [
+        "monitoring"
+      ]
+    }
+  ],
+  "tags": [
+    "scalable",
+    "evolved",
+    "secure",
+    "evolved",
+    "high_security",
+    "cost-optimized",
+    "evolved",
+    "budget_friendly"
+  ],
+  "evolution_notes": [
+    "Replaced Keycloak\u2192Ory Kratos for cost savings",
+    "Replaced Elasticsearch\u2192PostgreSQL for cost savings",
+    "Replaced Grafana\u2192Prometheus for cost savings",
+    "Multiple databases detected - consider consolidation",
+    "Cost efficiency: 1.52\u21921.36 (+0.16 savings)"
+  ]
+}

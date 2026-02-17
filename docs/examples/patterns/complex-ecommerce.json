@@ -1,0 +1,17 @@
+{
+  "name": "Complex E-commerce",
+  "description": "Over-engineered microservices e-commerce platform",
+  "components": [
+    "FastAPI",
+    "PostgreSQL",
+    "Redis",
+    "Kafka",
+    "RabbitMQ",
+    "Elasticsearch",
+    "Istio",
+    "Docker",
+    "Kubernetes"
+  ],
+  "created": "2024-02-01",
+  "notes": "12 microservices, 2 message queues, service mesh, for 10k users"
+}

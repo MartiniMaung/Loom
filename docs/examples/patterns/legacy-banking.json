@@ -1,0 +1,12 @@
+{
+  "name": "Legacy Banking System",
+  "description": "15-year-old financial monolith",
+  "components": [
+    "Spring MVC",
+    "Oracle",
+    "JBoss",
+    "Custom Auth"
+  ],
+  "created": "2009-03-10",
+  "notes": "Proprietary database, custom auth, no monitoring, PCI compliance required"
+}

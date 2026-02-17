@@ -4,11 +4,14 @@ Stores knowledge about OSS projects and their relationships.
 """
 import networkx as nx
 import json
+import logging
 import pickle
 from pathlib import Path
 from typing import List, Dict, Any, Optional, Set
 from .core import OSSProject, Relationship, RelationshipType, CapabilityType
 
+# Add this line
+logger = logging.getLogger(__name__)
 
 class SemanticGraph:
     """Knowledge graph of OSS projects and their capabilities."""
@@ -27,54 +30,93 @@ class SemanticGraph:
         self._load()
         
     def _save(self) -> None:
-        """Save graph and projects to disk."""
-        # Save graph using pickle
-        with open(self.graph_file, 'wb') as f:
-            pickle.dump(self.graph, f)
+        """Save graph to JSON file"""
+        data = {}
+        for name, project in self.projects.items():
+            # Convert project to dict using __dict__
+            if hasattr(project, '__dict__'):
+                project_dict = project.__dict__.copy()
+                # Convert capabilities to strings
+                if 'capabilities' in project_dict:
+                    project_dict['capabilities'] = [
+                        c.value if hasattr(c, 'value') else c 
+                        for c in project_dict['capabilities']
+                    ]
+                data[name] = project_dict
+            else:
+                data[name] = project
         
-        # Save projects as JSON
-        projects_data = {
-            name: project.dict() for name, project in self.projects.items()
-        }
-        with open(self.projects_file, 'w') as f:
-            json.dump(projects_data, f, indent=2)
-    
-    def _load(self) -> None:
-        """Load graph and projects from disk."""
-        try:
-            if self.graph_file.exists():
-                with open(self.graph_file, 'rb') as f:
-                    self.graph = pickle.load(f)
-                print(f"📂 Loaded graph from {self.graph_file}")
-        except Exception as e:
-            print(f"⚠️  Could not load graph: {e}")
-            self.graph = nx.DiGraph()
-  
-        try:
-            if self.projects_file.exists():
-                with open(self.projects_file, 'r', encoding='utf-8-sig') as f:  # <-- CHANGE HERE
-                    projects_data = json.load(f)
+        # Ensure directory exists
+        self.data_dir.mkdir(parents=True, exist_ok=True)
+        
+        file_path = self.data_dir / "projects.json"
+        with open(file_path, 'w', encoding='utf-8') as f:
+            json.dump(data, f, indent=2, default=str)
+        
+        logger.info(f"💾 Saved {len(self.projects)} projects to {file_path}")       
 
-                for name, data in projects_data.items():
-                    self.projects[name] = OSSProject(**data)
-                print(f"📂 Loaded {len(self.projects)} projects from {self.projects_file}")
+    def _load(self) -> None:
+        """Load projects from JSON file"""
+        projects_file = self.data_dir / "projects.json"
+        if not projects_file.exists():
+            logger.warning(f"Projects file not found: {projects_file}")
+            return
+
+        try:
+            with open(projects_file, 'r', encoding='utf-8-sig') as f:
+                data = json.load(f)
+            
+            # Handle both dictionary (old) and list (new) formats
+            if isinstance(data, dict):
+                # Old format: {"ProjectName": {...}}
+                for name, proj_data in data.items():
+                    try:
+                        # Ensure name is in the data
+                        if 'name' not in proj_data:
+                            proj_data['name'] = name
+                        project = OSSProject(**proj_data)
+                        self.add_project(project)
+                    except Exception as e:
+                        logger.error(f"Error loading project {name}: {e}")
+            elif isinstance(data, list):
+                # New format: [{...}, {...}]
+                for proj_data in data:
+                    try:
+                        if isinstance(proj_data, dict):
+                            project = OSSProject(**proj_data)
+                            self.add_project(project)
+                        else:
+                            logger.warning(f"Skipping non-dict project data: {type(proj_data)}")
+                    except Exception as e:
+                        logger.error(f"Error loading project: {e}")
+            else:
+                logger.error(f"Unexpected data format: {type(data)}")
+                
+            logger.info(f"📂 Loaded {len(self.projects)} projects from {projects_file}")
+            
         except Exception as e:
-              print(f"⚠️  Could not load projects: {e}")         
+            logger.error(f"Failed to load projects: {e}")
     
     def add_project(self, project: OSSProject) -> None:
-        """Add an OSS project to the graph."""
+        """Add a project to the graph."""
         self.projects[project.name] = project
-        self.graph.add_node(
-            project.name,
-            type="project",
-            capabilities=[c.value for c in project.capabilities],
-            license=project.license,
-            popularity=project.popularity_score,
-            metadata=project.metadata
-        )
         self._save()
-        print(f"✅ Added project: {project.name}")
+        logger.info(f"✅ Added project: {project.name}")
+
+    def get_project(self, name: str) -> Optional[OSSProject]:
+        """Get a project by name (case-insensitive)"""
+        # Direct match first
+        if name in self.projects:
+            return self.projects[name]
         
+        # Case-insensitive match
+        name_lower = name.lower()
+        for proj_name, project in self.projects.items():
+            if proj_name.lower() == name_lower:
+                return project
+        
+        return None     
+       
     def add_relationship(self, relationship: Relationship) -> None:
         """Add a relationship between two projects."""
         if relationship.source not in self.projects:
@@ -123,31 +165,58 @@ class SemanticGraph:
             if data.get("relationship_type") == RelationshipType.ALTERNATIVE_TO.value:
                 alternatives.append(target)
         return alternatives
-        
+ 
     def get_stats(self) -> Dict[str, Any]:
         """Get statistics about the graph."""
-        # Get all unique capabilities
-        all_capabilities = set()
-        for project in self.projects.values():
-            all_capabilities.update([c.value for c in project.capabilities])
-        
-        return {
-            "nodes": self.graph.number_of_nodes(),
-            "edges": self.graph.number_of_edges(),
-            "projects": len(self.projects),
-            "capability_coverage": len(all_capabilities)
+        stats = {
+            'projects': len(self.projects),
+            'capability_coverage': 0,
+            'nodes': len(self.projects),
+            'edges': 0  # We don't track edges in current implementation
         }
         
-    def search(self, query: str) -> List[str]:
-        """Simple search for projects matching a query."""
-        query = query.lower()
+        # Count unique capabilities
+        all_caps = set()
+        for project in self.projects.values():
+            for cap in project.capabilities:
+                all_caps.add(cap.value)
+        stats['capability_coverage'] = len(all_caps)
+        
+        return stats   
+      
+    def search(self, query: str) -> List[tuple[OSSProject, float]]:
+        """
+        Search for projects by name, description, or tags.
+        
+        Returns:
+            List of tuples (project, score) where score is match relevance
+        """
         results = []
-        for name, project in self.projects.items():
-            if (query in name.lower() or 
-                query in project.description.lower() or
-                any(query in tag.lower() for tag in project.compatibility_tags)):
-                results.append(name)
-        return results
+        query = query.lower()
+        
+        for project in self.projects.values():
+            score = 0.0
+            
+            # Name match (highest weight)
+            if query in project.name.lower():
+                score += 0.5
+            
+            # Description match
+            if project.description and query in project.description.lower():
+                score += 0.3
+            
+            # Capabilities match
+            for cap in project.capabilities:
+                if query in cap.value.lower():
+                    score += 0.2
+                    break
+            
+            if score > 0:
+                results.append((project, score))
+        
+        # Sort by score descending
+        results.sort(key=lambda x: x[1], reverse=True)
+        return results 
         
     def clear(self) -> None:
         """Clear all data from the graph."""

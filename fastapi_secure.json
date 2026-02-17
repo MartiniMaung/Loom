@@ -1,0 +1,62 @@
+{
+  "name": "FastAPI Application (Secure)",
+  "description": "Modern API with FastAPI - Enhanced for security. Security enhancements: Upgraded FastAPI\u2192Django for security, Upgraded MySQL\u2192PostgreSQL for security, Upgraded RabbitMQ\u2192Apache Kafka for security",
+  "components": [
+    {
+      "name": "Django",
+      "role": "API Framework (Security Enhanced)",
+      "capabilities": [
+        "web_framework"
+      ]
+    },
+    {
+      "name": "PostgreSQL",
+      "role": "Database (Security Enhanced)",
+      "capabilities": [
+        "database"
+      ]
+    },
+    {
+      "name": "Apache Kafka",
+      "role": "Message Queue (Security Enhanced)",
+      "capabilities": [
+        "message_queue"
+      ]
+    },
+    {
+      "name": "Keycloak",
+      "role": "Authentication & Identity Management",
+      "capabilities": [
+        "authentication"
+      ]
+    },
+    {
+      "name": "Prometheus",
+      "role": "Security Monitoring & Metrics",
+      "capabilities": [
+        "monitoring"
+      ]
+    },
+    {
+      "name": "Grafana",
+      "role": "Security Dashboard & Visualization",
+      "capabilities": [
+        "monitoring"
+      ]
+    }
+  ],
+  "tags": [
+    "secure",
+    "evolved",
+    "high_security"
+  ],
+  "evolution_notes": [
+    "Upgraded FastAPI\u2192Django for security",
+    "Upgraded MySQL\u2192PostgreSQL for security",
+    "Upgraded RabbitMQ\u2192Apache Kafka for security",
+    "Added Keycloak for authentication (security: 0.90)",
+    "Added Prometheus for security monitoring",
+    "Added Grafana for security visualization",
+    "Security score: 0.77\u21920.83 (+0.06)"
+  ]
+}

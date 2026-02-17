@@ -29,20 +29,6 @@ def get_graph() -> SemanticGraph:
         _graph_instance = SemanticGraph()
     return _graph_instance
 
-# @cli.command()
-# @click.option('--desc', prompt='Description', help='Description of the architecture')
-# @click.option('--cap', multiple=True, required=True, help='Required capabilities')
-# @click.option('--why', is_flag=True, help='Show reasoning')
-# def weave(desc, cap, why):
-#     """Weave a pattern from requirements"""
-#     try:
-#         # Load projects
-#         from src.loom.graph import SemanticGraph
-#         graph = SemanticGraph()
-#         graph._load()
-#         projects = graph.get_all_projects()        
-        # ... rest of the function ...
-
 @app.command()
 def hello():
     """Simple test command to verify Loom is working."""
@@ -258,8 +244,7 @@ def weave_pattern(
     description: str = typer.Option(..., "--desc", "-d", help="Description of what you want to build"),
     capabilities: Optional[List[str]] = typer.Option(None, "--cap", "-c", help="Required capabilities"),
     save: Optional[str] = typer.Option(None, "--save", "-s", help="Save pattern as JSON file"),
-    why: bool = typer.Option(False, "--why", "-w", help="Explain the reasoning behind the pattern"),
-    weights: Optional[str] = typer.Option(None, "--weights", help="Objective weights e.g. security=0.5 cost=0.3")
+    why: bool = typer.Option(False, "--why", "-w", help="Explain the reasoning behind the pattern")
 ):
     """
     Weave an architectural pattern based on your requirements.
@@ -279,18 +264,6 @@ def weave_pattern(
             except ValueError:
                 console.print(f"[yellow]Warning: Invalid capability '{cap_str}', skipping[/yellow]")
 
-
-    # Parse weights if provided
-    weights_dict = {}
-    if weights:
-        for pair in weights.split():
-            if '=' in pair:
-                key, value = pair.split('=')
-                try:
-                    weights_dict[key] = float(value)
-                except ValueError:
-                    console.print(f"[yellow]Warning: Invalid weight value for {key}, ignoring[/yellow]")
-
     # Create intent
     intent = Intent(
         description=description,
@@ -302,17 +275,10 @@ def weave_pattern(
     console.print(f"[dim]Intent:[/dim] {description}")
     if required_caps:
         console.print(f"[dim]Required:[/dim] {[c.value for c in required_caps]}")
-    if weights_dict:
-        console.print(f"[dim]Weights:[/dim] {weights_dict}")
 
     # Weave patterns
     weaver = PatternWeaver(graph)
     patterns = weaver.weave_for_intent(intent)
-    
-    # Apply weights to each pattern
-    if weights_dict and patterns:
-        for pattern in patterns:
-            pattern.calculate_metrics(weights_dict)
 
     if not patterns:
         console.print("[yellow]No patterns found for your requirements.[/yellow]")
@@ -330,8 +296,8 @@ def weave_pattern(
             border_style="yellow"
         ))
         
-        all_patterns = weaver.get_all_patterns(weights_dict)
-
+        all_patterns = weaver.get_all_patterns()
+        
         for i, pattern in enumerate(all_patterns):
             pattern_num = i + 1
             pattern_name = pattern['name']
@@ -387,9 +353,7 @@ def weave_pattern(
                 console.print("• [green]Trade-off[/green]: Lower complexity simplifies deployment and maintenance")
         
         console.print()  # Empty line before patterns    
-
-    for i, pattern_dict in enumerate(weaver.get_all_patterns(weights_dict)):
-
+    for i, pattern_dict in enumerate(weaver.get_all_patterns()):
         pattern_num = i + 1
 
         # Pattern header with metrics
@@ -482,175 +446,6 @@ def add_missing_projects():
     console.print("[bold]Adding critical missing OSS projects...[/bold]")
     graph.add_missing_projects()
     console.print("[green]✅ Critical missing projects added![/green]")
-
-@app.command(name="evolve")
-def evolve_pattern(
-    pattern_file: str = typer.Argument(..., help="Pattern JSON file to evolve"),
-    make_scalable: bool = typer.Option(False, "--make-scalable", help="Make pattern more scalable"),
-    add_security: bool = typer.Option(False, "--add-security", help="Add security enhancements"),
-    optimize_cost: bool = typer.Option(False, "--optimize-cost", help="Optimize for cost reduction"),
-    output: Optional[str] = typer.Option(None, "--output", "-o", help="Output file for evolved pattern"),
-    why: bool = typer.Option(False, "--why", "-w", help="Explain the evolution reasoning")
-):
-    """
-    Evolve an existing architectural pattern with new capabilities.
-    
-    Phase 1.2 of Loom Roadmap: Pattern Evolution
-    """
-    from loom.evolver import PatternEvolver
-    
-    graph = get_graph()
-    evolver = PatternEvolver(graph)
-    
-    console.print(Panel.fit(
-        "[bold green]🧬 Pattern Evolution[/bold green]\n"
-        "[dim]Evolving architectures with intelligent transformations[/dim]",
-        border_style="green"
-    ))
-    
-    # Check that at least one evolution option is selected
-    if not any([make_scalable, add_security, optimize_cost]):
-        console.print("[red]❌ Please specify at least one evolution option:[/red]")
-        console.print("  • --make-scalable")
-        console.print("  • --add-security") 
-        console.print("  • --optimize-cost")
-        return
-    
-    try:
-        # Load the pattern
-        console.print(f"[dim]📂 Loading pattern from: {pattern_file}[/dim]")
-        pattern = evolver.load_pattern(pattern_file)
-        
-        evolution_types = []
-        if make_scalable:
-            evolution_types.append("make-scalable")
-        if add_security:
-            evolution_types.append("add-security")
-        if optimize_cost:
-            evolution_types.append("optimize-cost")
-        
-        # Apply evolutions
-        evolved_pattern = pattern
-        for evolution_type in evolution_types:
-            console.print(f"[cyan]🔄 Applying {evolution_type.replace('-', ' ')}...[/cyan]")
-            evolved_pattern = evolver.evolve(evolved_pattern, evolution_type)
-        
-        # Generate output filename if not provided
-        if not output:
-            import os
-            base_name = os.path.splitext(pattern_file)[0]
-            output = f"{base_name}_evolved.json"
-        
-        # Save evolved pattern
-        evolver.save_pattern(evolved_pattern, output)
-        
-        console.print(Panel.fit(
-            f"[bold green]✅ Pattern Evolution Complete![/bold green]\n"
-            f"[dim]Original: {pattern_file}[/dim]\n"
-            f"[dim]Evolved: {output}[/dim]",
-            border_style="green"
-        ))
-        
-        # Show evolution summary
-        console.print("\n[bold]📊 Evolution Summary:[/bold]")
-        console.print(f"  • [cyan]Original:[/cyan] {pattern.name}")
-        console.print(f"  • [cyan]Evolved:[/cyan] {evolved_pattern.name}")
-        console.print(f"  • [cyan]Components:[/cyan] {len(evolved_pattern.components)} total")
-        console.print(f"  • [cyan]Applied:[/cyan] {', '.join(evolution_types)}")
-        
-        if why:
-            console.print("\n[bold]🤔 Evolution Reasoning:[/bold]")
-            if make_scalable:
-                console.print("  • [cyan]Scalability:[/cyan] Enhanced for horizontal scaling and performance")
-            if add_security:
-                console.print("  • [cyan]Security:[/cyan] Added security layers and best practices")
-            if optimize_cost:
-                console.print("  • [cyan]Cost:[/cyan] Optimized for resource efficiency and TCO reduction")
-        
-        console.print(f"\n[green]📁 Evolved pattern saved to: {output}[/green]")
-        
-    except FileNotFoundError:
-        console.print(f"[red]❌ Pattern file not found: {pattern_file}[/red]")
-    except json.JSONDecodeError:
-        console.print(f"[red]❌ Invalid JSON file: {pattern_file}[/red]")
-    except Exception as e:
-        console.print(f"[red]❌ Evolution failed: {str(e)}[/red]")
-
-@app.command(name="audit")
-def audit_pattern(
-    pattern_file: str = typer.Argument(..., help="Pattern JSON file to audit"),
-    format: str = typer.Option("text", "--format", "-f", help="Output format: text or json"),
-    detailed: bool = typer.Option(False, "--detailed", "-d", help="Show detailed evidence for findings"),
-    save_report: Optional[str] = typer.Option(None, "--save", "-s", help="Save audit report to file")
-):
-    """
-    Audit an architectural pattern for issues and improvements.
-    
-    Phase 1.3 of Loom Roadmap: Audit Mode
-    """
-    from loom.auditor import PatternAuditor, AuditSeverity
-    
-    graph = get_graph()
-    auditor = PatternAuditor(graph)
-    
-    console.print(Panel.fit(
-        "[bold green]🔍 Architecture Audit[/bold green]\n"
-        "[dim]Comprehensive analysis of architectural patterns[/dim]",
-        border_style="green"
-    ))
-    
-    try:
-        console.print(f"[dim]📂 Loading pattern from: {pattern_file}[/dim]")
-        
-        # Run the audit
-        findings = auditor.audit_pattern_file(pattern_file)
-        
-        # Generate report
-        report = auditor.generate_report(findings, output_format=format)
-        
-        # Display or save report
-        if save_report:
-            with open(save_report, 'w', encoding='utf-8') as f:
-                if format == "json":
-                    f.write(report)
-                else:
-                    f.write(report)
-            console.print(f"[green]📄 Audit report saved to: {save_report}[/green]")
-        else:
-            if format == "text":
-                console.print(report)
-            else:  # JSON format
-                console.print_json(report)
-        
-        # Summary statistics
-        if findings:
-            error_count = sum(1 for f in findings if f.severity in [AuditSeverity.ERROR, AuditSeverity.CRITICAL])
-            warning_count = sum(1 for f in findings if f.severity == AuditSeverity.WARNING)
-            info_count = sum(1 for f in findings if f.severity == AuditSeverity.INFO)
-            
-            console.print("\n[bold]📊 Audit Summary:[/bold]")
-            console.print(f"  • [red]Errors/Critical: {error_count}[/red]")
-            console.print(f"  • [yellow]Warnings: {warning_count}[/yellow]")
-            console.print(f"  • [blue]Info: {info_count}[/blue]")
-            console.print(f"  • [cyan]Total findings: {len(findings)}[/cyan]")
-            
-            if error_count > 0:
-                console.print("[red]⚠️  Critical issues found that require attention[/red]")
-            elif warning_count > 0:
-                console.print("[yellow]⚠️  Warnings found - review recommended[/yellow]")
-            else:
-                console.print("[green]✅ No critical issues found[/green]")
-        else:
-            console.print("[green]✅ No issues found! Pattern looks architecturally sound.[/green]")
-        
-    except FileNotFoundError:
-        console.print(f"[red]❌ Pattern file not found: {pattern_file}[/red]")
-    except json.JSONDecodeError:
-        console.print(f"[red]❌ Invalid JSON file: {pattern_file}[/red]")
-    except Exception as e:
-        console.print(f"[red]❌ Audit failed: {str(e)}[/red]")
-        import traceback
-        console.print(f"[dim]{traceback.format_exc()}[/dim]")
 
 def run():
     """Main entry point for the CLI."""
